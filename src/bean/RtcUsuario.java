@@ -26,7 +26,7 @@ public class RtcUsuario  implements java.io.Serializable {
      private String rtcCpf;
      private Date rtcDataNascimento;
      private String rtcSenha;
-     private Integer rtcNivel;
+     private int rtcNivel;
      private String rtcAtivo;
 
     public RtcUsuario() {
@@ -36,7 +36,7 @@ public class RtcUsuario  implements java.io.Serializable {
     public RtcUsuario(int rtcIdusuarios) {
         this.rtcIdusuarios = rtcIdusuarios;
     }
-    public RtcUsuario(int rtcIdusuarios, String rtcNome, String rtcApelido, String rtcCpf, Date rtcDataNascimento, String rtcSenha, Integer rtcNivel, String rtcAtivo) {
+    public RtcUsuario(int rtcIdusuarios, String rtcNome, String rtcApelido, String rtcCpf, Date rtcDataNascimento, String rtcSenha, int rtcNivel, String rtcAtivo) {
        this.rtcIdusuarios = rtcIdusuarios;
        this.rtcNome = rtcNome;
        this.rtcApelido = rtcApelido;
@@ -111,11 +111,11 @@ public class RtcUsuario  implements java.io.Serializable {
 
     
     @Column(name="rtc_nivel")
-    public Integer getRtcNivel() {
+    public int getRtcNivel() {
         return this.rtcNivel;
     }
     
-    public void setRtcNivel(Integer rtcNivel) {
+    public void setRtcNivel(int rtcNivel) {
         this.rtcNivel = rtcNivel;
     }
 

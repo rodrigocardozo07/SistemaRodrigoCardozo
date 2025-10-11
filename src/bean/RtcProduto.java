@@ -26,9 +26,9 @@ public class RtcProduto  implements java.io.Serializable {
      private String rtcNome;
      private String rtcDescricao;
      private String rtcMarca;
-     private BigDecimal rtcPreco;
-     private Integer rtcTipoProduto;
-     private Integer rtcCor;
+     private double rtcPreco;
+     private int rtcTipoProduto;
+     private int rtcCor;
      private Set rtcVendasProdutoses = new HashSet(0);
 
     public RtcProduto() {
@@ -39,7 +39,7 @@ public class RtcProduto  implements java.io.Serializable {
         this.rtcIdproduto = rtcIdproduto;
         this.rtcDescricao = rtcDescricao;
     }
-    public RtcProduto(int rtcIdproduto, String rtcNome, String rtcDescricao, String rtcMarca, BigDecimal rtcPreco, Integer rtcTipoProduto, Integer rtcCor, Set rtcVendasProdutoses) {
+    public RtcProduto(int rtcIdproduto, String rtcNome, String rtcDescricao, String rtcMarca, double rtcPreco, int rtcTipoProduto, int rtcCor, Set rtcVendasProdutoses) {
        this.rtcIdproduto = rtcIdproduto;
        this.rtcNome = rtcNome;
        this.rtcDescricao = rtcDescricao;
@@ -94,27 +94,27 @@ public class RtcProduto  implements java.io.Serializable {
 
     
     @Column(name="rtc_preco", precision=10)
-    public BigDecimal getRtcPreco() {
+    public double getRtcPreco() {
         return this.rtcPreco;
     }
     
-    public void setRtcPreco(BigDecimal rtcPreco) {
+    public void setRtcPreco(double rtcPreco) {
         this.rtcPreco = rtcPreco;
     }
 
     
     @Column(name="rtc_tipoProduto")
-    public Integer getRtcTipoProduto() {
+    public int getRtcTipoProduto() {
         return this.rtcTipoProduto;
     }
     
-    public void setRtcTipoProduto(Integer rtcTipoProduto) {
+    public void setRtcTipoProduto(int rtcTipoProduto) {
         this.rtcTipoProduto = rtcTipoProduto;
     }
 
     
     @Column(name="rtc_cor")
-    public Integer getRtcCor() {
+    public int getRtcCor() {
         return this.rtcCor;
     }
     

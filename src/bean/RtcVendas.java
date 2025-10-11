@@ -31,7 +31,7 @@ public class RtcVendas  implements java.io.Serializable {
      private RtcCliente rtcCliente;
      private RtcVendedor rtcVendedor;
      private Date rtcDatavenda;
-     private BigDecimal rtcTotal;
+     private double rtcTotal;
      private String rtcFormapagamento;
      private String rtcStatusvenda;
      private Set rtcVendasProdutoses = new HashSet(0);
@@ -43,7 +43,7 @@ public class RtcVendas  implements java.io.Serializable {
     public RtcVendas(int rtcIdvenda) {
         this.rtcIdvenda = rtcIdvenda;
     }
-    public RtcVendas(int rtcIdvenda, RtcCliente rtcCliente, RtcVendedor rtcVendedor, Date rtcDatavenda, BigDecimal rtcTotal, String rtcFormapagamento, String rtcStatusvenda, Set rtcVendasProdutoses) {
+    public RtcVendas(int rtcIdvenda, RtcCliente rtcCliente, RtcVendedor rtcVendedor, Date rtcDatavenda, int rtcTotal, String rtcFormapagamento, String rtcStatusvenda, Set rtcVendasProdutoses) {
        this.rtcIdvenda = rtcIdvenda;
        this.rtcCliente = rtcCliente;
        this.rtcVendedor = rtcVendedor;
@@ -98,11 +98,11 @@ public class RtcVendas  implements java.io.Serializable {
 
     
     @Column(name="rtc_total", precision=10)
-    public BigDecimal getRtcTotal() {
+    public double getRtcTotal() {
         return this.rtcTotal;
     }
     
-    public void setRtcTotal(BigDecimal rtcTotal) {
+    public void setRtcTotal(double rtcTotal) {
         this.rtcTotal = rtcTotal;
     }
 

@@ -24,19 +24,19 @@ public class RtcVendasProdutos  implements java.io.Serializable {
      private int rtcIdvendasProdutos;
      private RtcProduto rtcProduto;
      private RtcVendas rtcVendas;
-     private Integer rtcQuantidade;
-     private BigDecimal rtcValorunitario;
-     private BigDecimal rtcDesconto;
+     private int rtcQuantidade;
+     private double rtcValorunitario;
+     private double rtcDesconto;
 
     public RtcVendasProdutos() {
     }
 
 	
-    public RtcVendasProdutos(int rtcIdvendasProdutos, BigDecimal rtcDesconto) {
+    public RtcVendasProdutos(int rtcIdvendasProdutos, double rtcDesconto) {
         this.rtcIdvendasProdutos = rtcIdvendasProdutos;
         this.rtcDesconto = rtcDesconto;
     }
-    public RtcVendasProdutos(int rtcIdvendasProdutos, RtcProduto rtcProduto, RtcVendas rtcVendas, Integer rtcQuantidade, BigDecimal rtcValorunitario, BigDecimal rtcDesconto) {
+    public RtcVendasProdutos(int rtcIdvendasProdutos, RtcProduto rtcProduto, RtcVendas rtcVendas, int rtcQuantidade, double rtcValorunitario, double rtcDesconto) {
        this.rtcIdvendasProdutos = rtcIdvendasProdutos;
        this.rtcProduto = rtcProduto;
        this.rtcVendas = rtcVendas;
@@ -79,31 +79,31 @@ public class RtcVendasProdutos  implements java.io.Serializable {
 
     
     @Column(name="rtc_quantidade")
-    public Integer getRtcQuantidade() {
+    public int getRtcQuantidade() {
         return this.rtcQuantidade;
     }
     
-    public void setRtcQuantidade(Integer rtcQuantidade) {
+    public void setRtcQuantidade(int rtcQuantidade) {
         this.rtcQuantidade = rtcQuantidade;
     }
 
     
     @Column(name="rtc_valorunitario", precision=10)
-    public BigDecimal getRtcValorunitario() {
+    public double getRtcValorunitario() {
         return this.rtcValorunitario;
     }
     
-    public void setRtcValorunitario(BigDecimal rtcValorunitario) {
+    public void setRtcValorunitario(double rtcValorunitario) {
         this.rtcValorunitario = rtcValorunitario;
     }
 
     
     @Column(name="rtc_desconto", nullable=false, precision=10)
-    public BigDecimal getRtcDesconto() {
+    public double getRtcDesconto() {
         return this.rtcDesconto;
     }
     
-    public void setRtcDesconto(BigDecimal rtcDesconto) {
+    public void setRtcDesconto(double rtcDesconto) {
         this.rtcDesconto = rtcDesconto;
     }
 

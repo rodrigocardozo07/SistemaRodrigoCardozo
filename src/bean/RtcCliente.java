@@ -37,7 +37,7 @@ public class RtcCliente  implements java.io.Serializable {
      private Date rtcDataNascimento;
      private String rtcSexo;
      private Date rtcDataCadastro;
-     private Integer rtcTipoCliente;
+     private int rtcTipoCliente;
      private String rtcAtivo;
      private Set rtcVendases = new HashSet(0);
 
@@ -48,7 +48,7 @@ public class RtcCliente  implements java.io.Serializable {
     public RtcCliente(int rtcIdcliente) {
         this.rtcIdcliente = rtcIdcliente;
     }
-    public RtcCliente(int rtcIdcliente, String rtcNome, String rtcCpf, String rtcEmail, String rtcCelular, String rtcEndereco, String rtcBairro, String rtcCidade, String rtcEstado, String rtcCep, Date rtcDataNascimento, String rtcSexo, Date rtcDataCadastro, Integer rtcTipoCliente, String rtcAtivo, Set rtcVendases) {
+    public RtcCliente(int rtcIdcliente, String rtcNome, String rtcCpf, String rtcEmail, String rtcCelular, String rtcEndereco, String rtcBairro, String rtcCidade, String rtcEstado, String rtcCep, Date rtcDataNascimento, String rtcSexo, Date rtcDataCadastro, int rtcTipoCliente, String rtcAtivo, Set rtcVendases) {
        this.rtcIdcliente = rtcIdcliente;
        this.rtcNome = rtcNome;
        this.rtcCpf = rtcCpf;
@@ -201,11 +201,11 @@ public class RtcCliente  implements java.io.Serializable {
 
     
     @Column(name="rtc_tipoCliente")
-    public Integer getRtcTipoCliente() {
+    public int getRtcTipoCliente() {
         return this.rtcTipoCliente;
     }
     
-    public void setRtcTipoCliente(Integer rtcTipoCliente) {
+    public void setRtcTipoCliente(int rtcTipoCliente) {
         this.rtcTipoCliente = rtcTipoCliente;
     }
 
