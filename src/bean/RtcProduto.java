@@ -29,7 +29,7 @@ public class RtcProduto  implements java.io.Serializable {
      private double rtcPreco;
      private int rtcTipoProduto;
      private int rtcCor;
-     private Set rtcVendasProdutoses = new HashSet(0);
+    
 
     public RtcProduto() {
     }
@@ -39,7 +39,7 @@ public class RtcProduto  implements java.io.Serializable {
         this.rtcIdproduto = rtcIdproduto;
         this.rtcDescricao = rtcDescricao;
     }
-    public RtcProduto(int rtcIdproduto, String rtcNome, String rtcDescricao, String rtcMarca, double rtcPreco, int rtcTipoProduto, int rtcCor, Set rtcVendasProdutoses) {
+    public RtcProduto(int rtcIdproduto, String rtcNome, String rtcDescricao, String rtcMarca, double rtcPreco, int rtcTipoProduto, int rtcCor) {
        this.rtcIdproduto = rtcIdproduto;
        this.rtcNome = rtcNome;
        this.rtcDescricao = rtcDescricao;
@@ -47,7 +47,7 @@ public class RtcProduto  implements java.io.Serializable {
        this.rtcPreco = rtcPreco;
        this.rtcTipoProduto = rtcTipoProduto;
        this.rtcCor = rtcCor;
-       this.rtcVendasProdutoses = rtcVendasProdutoses;
+       
     }
    
      @Id 
@@ -122,14 +122,7 @@ public class RtcProduto  implements java.io.Serializable {
         this.rtcCor = rtcCor;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="rtcProduto")
-    public Set getRtcVendasProdutoses() {
-        return this.rtcVendasProdutoses;
-    }
-    
-    public void setRtcVendasProdutoses(Set rtcVendasProdutoses) {
-        this.rtcVendasProdutoses = rtcVendasProdutoses;
-    }
+
 
 
 

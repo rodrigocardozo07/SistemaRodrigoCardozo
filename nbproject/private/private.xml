@@ -3,8 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Jaque/Downloads/SistemaRodrigoCardozo/nbproject/build-impl.xml</file>
-            <file>file:/C:/Users/Jaque/Downloads/SistemaRodrigoCardozo/src/hibernate.cfg.xml</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/bean/RtcVendasProdutos.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/dao/Rtc_VendasDAO.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/bean/RtcProduto.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/bean/RtcVendedor.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/view/JDlgRtc_ClientesPesquisar.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/dao/Rtc_ProdutosDAO.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/view/JDlgRtc_VendedorPesquisar.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/view/Rtc_ControllerUsuarios.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/bean/RtcVendas.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/dao/Rtc_VendasProdutosDAO.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/view/JDlgRtc_UsuariosPesquisar.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/tools/Util.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/dao/Rtc_ClientesDAO.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/dao/Rtc_UsuariosDAO.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/view/JDlgRtc_ProdutosPesquisar.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/bean/RtcUsuario.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/view/JDlgRtc_Vendas.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/bean/RtcCliente.java</file>
+            <file>file:/C:/Users/Jaque/Documents/NetBeansProjects/SistemaRodrigoCardozo/src/view/JDlgRtc_VendasProdutos.java</file>
         </group>
     </open-files>
 </project-private>

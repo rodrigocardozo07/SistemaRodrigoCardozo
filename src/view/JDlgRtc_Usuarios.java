@@ -5,6 +5,8 @@
  */
 package view;
 
+import bean.RtcUsuario;
+import java.text.SimpleDateFormat;
 import tools.Util;
 import view.JDlgRtc_UsuariosPesquisar;
 
@@ -24,6 +26,25 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         
         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento,jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        
+    }
+    
+     public void viewBean(RtcUsuario usuarios) { 
+        jTxtRtc_Codigo.setText(String.valueOf(usuarios.getRtcIdusuarios()));
+        jTxtRtc_Nome.setText(String.valueOf(usuarios.getRtcNome()));
+        jTxtRtc_Apelido.setText(String.valueOf(usuarios.getRtcApelido()));
+        jFmtRtc_Cpf.setText(String.valueOf(usuarios.getRtcCpf()));
+        jFmtRtc_DataNascimento.setText(Util.dateToStr(usuarios.getRtcDataNascimento())); 
+        jPwdRtc_Senha.setText(String.valueOf(usuarios.getRtcSenha()));
+        jCboRtc_Nivel.setSelectedItem(usuarios.getRtcNivel());
+        if (usuarios.getRtcAtivo().equals("S")) {
+            jChbRtc_Ativo.setSelected(true);
+        } else {
+            jChbRtc_Ativo.setSelected(false);
+        }
+        
+        // usuarioPesquisado = true;
+
     }
 
     /**

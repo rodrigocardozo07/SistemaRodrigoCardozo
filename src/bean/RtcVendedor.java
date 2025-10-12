@@ -28,7 +28,7 @@ public class RtcVendedor  implements java.io.Serializable {
      private String rtcTelefone;
      private String rtcEndereco;
      private String rtcCidade;
-     private Set rtcVendases = new HashSet(0);
+    
 
     public RtcVendedor() {
     }
@@ -39,7 +39,7 @@ public class RtcVendedor  implements java.io.Serializable {
         this.rtcEmail = rtcEmail;
         this.rtcTelefone = rtcTelefone;
     }
-    public RtcVendedor(int rtcIdvendedor, String rtcNome, String rtcCnpj, String rtcEmail, String rtcTelefone, String rtcEndereco, String rtcCidade, Set rtcVendases) {
+    public RtcVendedor(int rtcIdvendedor, String rtcNome, String rtcCnpj, String rtcEmail, String rtcTelefone, String rtcEndereco, String rtcCidade) {
        this.rtcIdvendedor = rtcIdvendedor;
        this.rtcNome = rtcNome;
        this.rtcCnpj = rtcCnpj;
@@ -47,7 +47,7 @@ public class RtcVendedor  implements java.io.Serializable {
        this.rtcTelefone = rtcTelefone;
        this.rtcEndereco = rtcEndereco;
        this.rtcCidade = rtcCidade;
-       this.rtcVendases = rtcVendases;
+      
     }
    
      @Id 
@@ -122,13 +122,8 @@ public class RtcVendedor  implements java.io.Serializable {
         this.rtcCidade = rtcCidade;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="rtcVendedor")
-    public Set getRtcVendases() {
-        return this.rtcVendases;
-    }
-    
-    public void setRtcVendases(Set rtcVendases) {
-        this.rtcVendases = rtcVendases;
+    public String toString() {
+    return this.getRtcNome(); // mostra o nome do vendedor no combo box
     }
 
 

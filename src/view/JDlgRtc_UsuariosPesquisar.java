@@ -5,6 +5,10 @@
  */
 package view;
 
+import bean.RtcUsuario;
+import dao.Rtc_UsuariosDAO;
+import java.util.List;
+
 /**
  *
  * @author Jaque
@@ -12,6 +16,7 @@ package view;
 public class JDlgRtc_UsuariosPesquisar extends javax.swing.JDialog {
 
     private JDlgRtc_Usuarios jDlgRtc_Usuarios;
+    Rtc_ControllerUsuarios controllerUsuarios;
 
     /**
      * Creates new form JDlgRtc_UsuariosPesquisar
@@ -21,6 +26,12 @@ public class JDlgRtc_UsuariosPesquisar extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Pesquisar Usuários");
+        
+        Rtc_UsuariosDAO usuariosDao = new Rtc_UsuariosDAO();
+        List lista = (List) usuariosDao.listAll();
+        controllerUsuarios = new Rtc_ControllerUsuarios();
+        controllerUsuarios.setList(lista);
+        jTblRtc_UsuariosPesquisar.setModel(controllerUsuarios);
     }
 
     public void setTelaPai(JDlgRtc_Usuarios jDlgRtc_Usuarios) {
@@ -87,6 +98,8 @@ public class JDlgRtc_UsuariosPesquisar extends javax.swing.JDialog {
     private void jBtnRtc_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_OkActionPerformed
         // TODO add your handling code here:
          int linSel = jTblRtc_UsuariosPesquisar.getSelectedRow();
+         RtcUsuario usuarios = (RtcUsuario) controllerUsuarios.getBean(linSel);
+        jDlgRtc_Usuarios.viewBean(usuarios);
          setVisible(false);
     }//GEN-LAST:event_jBtnRtc_OkActionPerformed
 

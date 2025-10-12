@@ -39,7 +39,7 @@ public class RtcCliente  implements java.io.Serializable {
      private Date rtcDataCadastro;
      private int rtcTipoCliente;
      private String rtcAtivo;
-     private Set rtcVendases = new HashSet(0);
+    
 
     public RtcCliente() {
     }
@@ -48,7 +48,7 @@ public class RtcCliente  implements java.io.Serializable {
     public RtcCliente(int rtcIdcliente) {
         this.rtcIdcliente = rtcIdcliente;
     }
-    public RtcCliente(int rtcIdcliente, String rtcNome, String rtcCpf, String rtcEmail, String rtcCelular, String rtcEndereco, String rtcBairro, String rtcCidade, String rtcEstado, String rtcCep, Date rtcDataNascimento, String rtcSexo, Date rtcDataCadastro, int rtcTipoCliente, String rtcAtivo, Set rtcVendases) {
+    public RtcCliente(int rtcIdcliente, String rtcNome, String rtcCpf, String rtcEmail, String rtcCelular, String rtcEndereco, String rtcBairro, String rtcCidade, String rtcEstado, String rtcCep, Date rtcDataNascimento, String rtcSexo, Date rtcDataCadastro, int rtcTipoCliente, String rtcAtivo) {
        this.rtcIdcliente = rtcIdcliente;
        this.rtcNome = rtcNome;
        this.rtcCpf = rtcCpf;
@@ -64,7 +64,7 @@ public class RtcCliente  implements java.io.Serializable {
        this.rtcDataCadastro = rtcDataCadastro;
        this.rtcTipoCliente = rtcTipoCliente;
        this.rtcAtivo = rtcAtivo;
-       this.rtcVendases = rtcVendases;
+      
     }
    
      @Id 
@@ -219,14 +219,10 @@ public class RtcCliente  implements java.io.Serializable {
         this.rtcAtivo = rtcAtivo;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="rtcCliente")
-    public Set getRtcVendases() {
-        return this.rtcVendases;
-    }
-    
-    public void setRtcVendases(Set rtcVendases) {
-        this.rtcVendases = rtcVendases;
-    }
+    @Override
+    public String toString() {
+    return this.getRtcNome(); // mostra o nome do cliente no combo box... 
+    }  
 
 
 

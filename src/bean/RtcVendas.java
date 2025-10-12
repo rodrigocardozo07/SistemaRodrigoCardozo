@@ -34,7 +34,7 @@ public class RtcVendas  implements java.io.Serializable {
      private double rtcTotal;
      private String rtcFormapagamento;
      private String rtcStatusvenda;
-     private Set rtcVendasProdutoses = new HashSet(0);
+     
 
     public RtcVendas() {
     }
@@ -43,7 +43,7 @@ public class RtcVendas  implements java.io.Serializable {
     public RtcVendas(int rtcIdvenda) {
         this.rtcIdvenda = rtcIdvenda;
     }
-    public RtcVendas(int rtcIdvenda, RtcCliente rtcCliente, RtcVendedor rtcVendedor, Date rtcDatavenda, int rtcTotal, String rtcFormapagamento, String rtcStatusvenda, Set rtcVendasProdutoses) {
+    public RtcVendas(int rtcIdvenda, RtcCliente rtcCliente, RtcVendedor rtcVendedor, Date rtcDatavenda, int rtcTotal, String rtcFormapagamento, String rtcStatusvenda) {
        this.rtcIdvenda = rtcIdvenda;
        this.rtcCliente = rtcCliente;
        this.rtcVendedor = rtcVendedor;
@@ -51,7 +51,7 @@ public class RtcVendas  implements java.io.Serializable {
        this.rtcTotal = rtcTotal;
        this.rtcFormapagamento = rtcFormapagamento;
        this.rtcStatusvenda = rtcStatusvenda;
-       this.rtcVendasProdutoses = rtcVendasProdutoses;
+       
     }
    
      @Id 
@@ -126,14 +126,7 @@ public class RtcVendas  implements java.io.Serializable {
         this.rtcStatusvenda = rtcStatusvenda;
     }
 
-@OneToMany(fetch=FetchType.LAZY, mappedBy="rtcVendas")
-    public Set getRtcVendasProdutoses() {
-        return this.rtcVendasProdutoses;
-    }
-    
-    public void setRtcVendasProdutoses(Set rtcVendasProdutoses) {
-        this.rtcVendasProdutoses = rtcVendasProdutoses;
-    }
+
 
 
 
