@@ -31,7 +31,44 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
 
         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
 
+        addPlaceholder(jTxtRtc_Codigo, "Código...");
+        addPlaceholder(jTxtRtc_Nome, "Ex: João da Silva");
+        addPlaceholder(jTxtRtc_Apelido, "Ex: joaosilva123");
+        addPlaceholder(jPwdRtc_Senha, "Digite uma senha...");
+
+        jTxtRtc_Codigo.setToolTipText("Digite o código do usuário (geralmente gerado automaticamente)");
+        jTxtRtc_Nome.setToolTipText("Informe o nome completo do usuário");
+        jTxtRtc_Apelido.setToolTipText("Digite o apelido usado no sistema");
+        jFmtRtc_Cpf.setToolTipText("Informe o CPF no formato 000.000.000-00");
+        jFmtRtc_DataNascimento.setToolTipText("Digite a data de nascimento no formato DD/MM/AAAA");
+        jPwdRtc_Senha.setToolTipText("Digite uma senha segura para o usuário");
+        jCboRtc_Nivel.setToolTipText("Selecione o nível de acesso do usuário (Administrador, Usuário, etc.)");
+        jChbRtc_Ativo.setToolTipText("Marque se o usuário está ativo no sistema");
+
     }
+    
+    private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
+    textComponent.setText(placeholder);
+    textComponent.setForeground(java.awt.Color.GRAY);
+
+    textComponent.addFocusListener(new java.awt.event.FocusAdapter() {
+        @Override
+        public void focusGained(java.awt.event.FocusEvent e) {
+            if (textComponent.getText().equals(placeholder)) {
+                textComponent.setText("");
+                textComponent.setForeground(java.awt.Color.BLACK);
+            }
+        }
+
+        @Override
+        public void focusLost(java.awt.event.FocusEvent e) {
+            if (textComponent.getText().isEmpty()) {
+                textComponent.setForeground(java.awt.Color.GRAY);
+                textComponent.setText(placeholder);
+            }
+        }
+    });
+}
 
     public RtcUsuario viewBean() {
         RtcUsuario usuario = new RtcUsuario();
@@ -367,6 +404,8 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
         Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
         jTxtRtc_Codigo.grabFocus();
         incluir = true;
+        
+       
 
     }//GEN-LAST:event_jBtnRtc_IncluirActionPerformed
 

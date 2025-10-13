@@ -29,6 +29,45 @@ public class JDlgRtc_Vendedor extends javax.swing.JDialog {
         setLocationRelativeTo(null);
 
         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        
+        addPlaceholder(jTxtRtc_Codigo, "Código...");
+        addPlaceholder(jTxtRtc_Nome, "Ex: João da Silva");
+        addPlaceholder(jTxtRtc_Email, "Ex: joao@empresa.com");
+        addPlaceholder(jTxtRtc_Endereco, "Ex: Rua das Flores, 123");
+        addPlaceholder(jTxtRtc_Cidade, "Ex: Rio de Janeiro");
+        
+      
+        jTxtRtc_Codigo.setToolTipText("Código único do vendedor");
+        jTxtRtc_Nome.setToolTipText("Nome completo do vendedor");
+        jTxtRtc_Email.setToolTipText("E-mail para contato do vendedor");
+        jTxtRtc_Endereco.setToolTipText("Endereço completo do vendedor");
+        jTxtRtc_Cidade.setToolTipText("Cidade onde o vendedor reside");
+        jFmtRtc_Cnpj.setToolTipText("CNPJ da empresa no formato 00.000.000/0000-00");
+        jFmtRtc_Telefone.setToolTipText("Telefone para contato no formato (00) 0000-0000");
+    
+    }
+    
+     private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
+        textComponent.setText(placeholder);
+        textComponent.setForeground(java.awt.Color.GRAY);
+
+        textComponent.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().equals(placeholder)) {
+                    textComponent.setText("");
+                    textComponent.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().isEmpty()) {
+                    textComponent.setForeground(java.awt.Color.GRAY);
+                    textComponent.setText(placeholder);
+                }
+            }
+        });
     }
 
     public RtcVendedor viewBean() {

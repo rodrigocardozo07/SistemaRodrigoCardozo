@@ -29,6 +29,45 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
         setLocationRelativeTo(null);
 
         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
+        addPlaceholder(jTxtRtc_Codigo, "Código...");
+        addPlaceholder(jTxtRtc_Nome, "Ex: Monitor Gamer");
+        addPlaceholder(jTxtRtc_Marca, "Ex: AOC Legend");
+        addPlaceholder(jFmtRtc_Preco, "0.00");
+        addPlaceholder(jTxtRtc_Descricao, "Monitor 27 polegas... ");
+  
+
+        jTxtRtc_Codigo.setToolTipText("Código numérico de identificação do produto");
+        jTxtRtc_Nome.setToolTipText("Informe o nome completo do produto");
+        jTxtRtc_Marca.setToolTipText("Informe a marca ou fabricante");
+        jFmtRtc_Preco.setToolTipText("Digite apenas números e ponto para decimais");
+        jTxtRtc_Descricao.setToolTipText("Descrição do produto para ajudar na pesquisa");
+        jCboRtc_Cor.setToolTipText("Selecione a cor do produto");
+        jCboRtc_TipoProduto.setToolTipText("Escolha o tipo de produto");
+
+    }
+
+    private void addPlaceholder(javax.swing.JTextField field, String placeholder) {
+        field.setForeground(java.awt.Color.GRAY);
+        field.setText(placeholder);
+
+        field.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (field.getText().equals(placeholder)) {
+                    field.setText("");
+                    field.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (field.getText().isEmpty()) {
+                    field.setForeground(java.awt.Color.GRAY);
+                    field.setText(placeholder);
+                }
+            }
+        });
     }
 
     public RtcProduto viewBean() {
@@ -330,6 +369,8 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
         Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
         jTxtRtc_Codigo.grabFocus();
         incluir = true;
+
+        
     }//GEN-LAST:event_jBtnRtc_IncluirActionPerformed
 
     private void jBtnRtc_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarActionPerformed

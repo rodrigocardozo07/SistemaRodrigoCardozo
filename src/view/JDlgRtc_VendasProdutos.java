@@ -18,6 +18,42 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        setTitle("Vendas Produtos");
+        
+        addPlaceholder(jTxtRtc_Quantidade, "Ex: 1");
+        addPlaceholder(jTxtRtc_ValorUnitario, "0,00");
+        addPlaceholder(jTxtRtc_Desconto, "0,00");
+        
+       
+        jCboRtc_Produtos.setToolTipText("Selecione o produto para adicionar à venda");
+        jTxtRtc_Quantidade.setToolTipText("Quantidade do produto (apenas números)");
+        jTxtRtc_ValorUnitario.setToolTipText("Valor unitário do produto (use ponto para decimais)");
+        jTxtRtc_Desconto.setToolTipText("Desconto aplicado ao produto (use ponto para decimais)");
+        jBtnOk.setToolTipText("Confirmar e adicionar produto à venda");
+        jBtnCancelar.setToolTipText("Cancelar operação e fechar janela");
+    }
+    
+     private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
+        textComponent.setText(placeholder);
+        textComponent.setForeground(java.awt.Color.GRAY);
+
+        textComponent.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().equals(placeholder)) {
+                    textComponent.setText("");
+                    textComponent.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().isEmpty()) {
+                    textComponent.setForeground(java.awt.Color.GRAY);
+                    textComponent.setText(placeholder);
+                }
+            }
+        });
     }
 
     /**

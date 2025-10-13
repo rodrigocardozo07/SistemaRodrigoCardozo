@@ -45,7 +45,49 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         for (int i = 0; i < listaVendedor.size(); i++) {
             jCboRtc_Vendedor.addItem((RtcVendedor) listaVendedor.get(i));
         }
+        
+        addPlaceholder(jTxtRtc_Codigo, "Código...");
+        addPlaceholder(jTxtRtc_Total, "0,00");
+        addPlaceholder(jTxtRtc_FormaPagamento, "Ex: Cartão, Dinheiro");
+        addPlaceholder(jTxtRtc_StatusVenda, "Ex: Pendente, Concluída");
+        
+        
+        jTxtRtc_Codigo.setToolTipText("Número único da venda");
+        jFmtRtc_Data.setToolTipText("Data da venda no formato DD/MM/AAAA");
+        jCboRtc_Clientes.setToolTipText("Selecione o cliente da venda");
+        jCboRtc_Vendedor.setToolTipText("Selecione o vendedor responsável");
+        jTxtRtc_Total.setToolTipText("Valor total da venda (use ponto para decimais)");
+        jTxtRtc_FormaPagamento.setToolTipText("Forma de pagamento utilizada na venda");
+        jTxtRtc_StatusVenda.setToolTipText("Status atual da venda");
+        jBtnRtc_IncluirProd.setToolTipText("Adicionar produtos à venda");
+        jBtnRtc_AlterarProd.setToolTipText("Alterar produto selecionado");
+        jBtnRtc_ExcluirProd.setToolTipText("Remover produto selecionado");
+        jTblRtc_VendasProdutos.setToolTipText("Lista de produtos incluídos na venda");
+    
 
+    }
+    
+    private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
+        textComponent.setText(placeholder);
+        textComponent.setForeground(java.awt.Color.GRAY);
+
+        textComponent.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().equals(placeholder)) {
+                    textComponent.setText("");
+                    textComponent.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().isEmpty()) {
+                    textComponent.setForeground(java.awt.Color.GRAY);
+                    textComponent.setText(placeholder);
+                }
+            }
+        });
     }
 
     public RtcVendas viewBean() {
@@ -91,7 +133,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         jCboRtc_Vendedor = new javax.swing.JComboBox<RtcVendedor>();
         jTxtRtc_Total = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTblRtc_Vendas = new javax.swing.JTable();
+        jTblRtc_VendasProdutos = new javax.swing.JTable();
         jBtnIncluir = new javax.swing.JButton();
         jBtnRtc_Alterar = new javax.swing.JButton();
         jBtnRtc_Excluir = new javax.swing.JButton();
@@ -136,7 +178,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
             }
         });
 
-        jTblRtc_Vendas.setModel(new javax.swing.table.DefaultTableModel(
+        jTblRtc_VendasProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -147,7 +189,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTblRtc_Vendas);
+        jScrollPane1.setViewportView(jTblRtc_VendasProdutos);
 
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
         jBtnIncluir.setText("Incluir");
@@ -492,7 +534,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTblRtc_Vendas;
+    private javax.swing.JTable jTblRtc_VendasProdutos;
     private javax.swing.JTextField jTxtRtc_Codigo;
     private javax.swing.JTextField jTxtRtc_FormaPagamento;
     private javax.swing.JTextField jTxtRtc_StatusVenda;

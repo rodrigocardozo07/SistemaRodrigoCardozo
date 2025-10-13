@@ -32,6 +32,55 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
 
+        addPlaceholder(jTxtRtc_Codigo, "Código...");
+        addPlaceholder(jTxtRtc_Nome, "Ex: João da Silva");
+        addPlaceholder(jTxtRtc_Email, "Ex: joaosilva@email.com");
+        addPlaceholder(jTxtRtc_Estado, "Ex: MS");
+        addPlaceholder(jTxtRtc_Bairro, "Ex: Copão Redondo");
+        addPlaceholder(jTxtRtc_Endereco, "Ex: Rua das Flores, 123");
+        addPlaceholder(jTxtRtc_Cidade, "Ex: São Paulo");
+        addPlaceholder(jFmtRtc_Celular, "(00) 00000-0000");
+
+        jTxtRtc_Codigo.setToolTipText("Digite o código do cliente (gerado automaticamente ou manualmente)");
+        jTxtRtc_Nome.setToolTipText("Informe o nome completo do cliente");
+        jFmtRtc_Cpf.setToolTipText("Informe o CPF no formato 000.000.000-00");
+        jFmtRtc_Cep.setToolTipText("Informe o CPF no formato 00000-000");
+        jFmtRtc_Celular.setToolTipText("Informe o celular no formato (00)0000-00000");
+        jTxtRtc_Email.setToolTipText("Digite o e-mail principal do cliente");
+        jFmtRtc_Celular.setToolTipText("Informe o telefone no formato (00) 00000-0000");
+        jTxtRtc_Endereco.setToolTipText("Informe o endereço completo do cliente");
+        jTxtRtc_Cidade.setToolTipText("Digite a cidade de residência do cliente");
+        jCboRtc_TipoCliente.setToolTipText("Selecione o tipo de cliente (Gamer, Designer, Colaborador...)");
+        jChbRtc_Ativo.setToolTipText("Marque se o cliente está ativo no sistema");
+        jRdBtnRtc_M.setToolTipText("Sexo Masculino");
+        jRdBtnRtc_F.setToolTipText("Sexo Feminino");
+        jTxtRtc_Bairro.setToolTipText("Informe o Bairro do cliente");
+        jTxtRtc_Estado.setToolTipText("O Estado deve conter apenas as siglas!");
+        jFmtRtc_DataCadastro.setToolTipText("Preencha a data de cadastro do cliente no formato DD/MM/AAAA");
+        jFmtRtc_DataNascimento.setToolTipText("Preencha a data de nascimento do cliente no formato DD/MM/AAAA");
+    }
+
+    private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
+        textComponent.setText(placeholder);
+        textComponent.setForeground(java.awt.Color.GRAY);
+
+        textComponent.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().equals(placeholder)) {
+                    textComponent.setText("");
+                    textComponent.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (textComponent.getText().isEmpty()) {
+                    textComponent.setForeground(java.awt.Color.GRAY);
+                    textComponent.setText(placeholder);
+                }
+            }
+        });
     }
 
     public RtcCliente viewBean() {
@@ -420,6 +469,8 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
         Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M);
         jTxtRtc_Codigo.grabFocus();
         incluir = true;
+
+        
     }//GEN-LAST:event_jBtnRtc_IncluirActionPerformed
 
     private void jBtnRtc_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarActionPerformed
