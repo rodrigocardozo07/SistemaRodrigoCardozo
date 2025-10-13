@@ -6,6 +6,7 @@
 package view;
 
 import bean.RtcUsuario;
+import dao.Rtc_UsuariosDAO;
 import java.text.SimpleDateFormat;
 import tools.Util;
 import view.JDlgRtc_UsuariosPesquisar;
@@ -16,34 +17,51 @@ import view.JDlgRtc_UsuariosPesquisar;
  */
 public class JDlgRtc_Usuarios extends javax.swing.JDialog {
 
+    boolean incluir = false;
+    private boolean usuariosPesquisado = false;
+
     /**
      * Creates new form JDlgRtc_Usuarios
      */
     public JDlgRtc_Usuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        setTitle("Cadastro de Usuarios");
+        setTitle("Cadastro de Usuários");
         setLocationRelativeTo(null);
-        
-        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento,jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-        
+
+        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
     }
-    
-     public void viewBean(RtcUsuario usuarios) { 
+
+    public RtcUsuario viewBean() {
+        RtcUsuario usuario = new RtcUsuario();
+        usuario.setRtcIdusuarios(Util.strToInt(jTxtRtc_Codigo.getText()));
+        usuario.setRtcNome(jTxtRtc_Nome.getText());
+        usuario.setRtcApelido(jTxtRtc_Apelido.getText());
+        usuario.setRtcCpf(jFmtRtc_Cpf.getText());
+        usuario.setRtcDataNascimento(Util.strToDate(jFmtRtc_DataNascimento.getText()));
+        usuario.setRtcSenha(jPwdRtc_Senha.getText());
+        usuario.setRtcNivel(jCboRtc_Nivel.getSelectedIndex() + 1);
+        usuario.setRtcAtivo(jChbRtc_Ativo.isSelected() ? "S" : "N");
+
+        return usuario;
+    }
+
+    public void viewBean(RtcUsuario usuarios) {
         jTxtRtc_Codigo.setText(String.valueOf(usuarios.getRtcIdusuarios()));
         jTxtRtc_Nome.setText(String.valueOf(usuarios.getRtcNome()));
         jTxtRtc_Apelido.setText(String.valueOf(usuarios.getRtcApelido()));
         jFmtRtc_Cpf.setText(String.valueOf(usuarios.getRtcCpf()));
-        jFmtRtc_DataNascimento.setText(Util.dateToStr(usuarios.getRtcDataNascimento())); 
+        jFmtRtc_DataNascimento.setText(Util.dateToStr(usuarios.getRtcDataNascimento()));
         jPwdRtc_Senha.setText(String.valueOf(usuarios.getRtcSenha()));
-        jCboRtc_Nivel.setSelectedItem(usuarios.getRtcNivel());
+        jCboRtc_Nivel.setSelectedIndex(usuarios.getRtcNivel() - 1);
         if (usuarios.getRtcAtivo().equals("S")) {
             jChbRtc_Ativo.setSelected(true);
         } else {
             jChbRtc_Ativo.setSelected(false);
         }
-        
-        // usuarioPesquisado = true;
+
+        usuariosPesquisado = true;
 
     }
 
@@ -273,25 +291,57 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
 
     private void jBtnRtc_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarActionPerformed
         // TODO add your handling code here:
-       Util.habilitar(true, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento,jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-       Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);   
+        if (!usuariosPesquisado) {
+            Util.aviso("Pesquise algum usuário antes de alterar!");
+            return;
+        }
+
+        Util.habilitar(true, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        jTxtRtc_Nome.grabFocus();
+        incluir = false;
     }//GEN-LAST:event_jBtnRtc_AlterarActionPerformed
 
     private void jBtnRtc_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ExcluirActionPerformed
         // TODO add your handling code here:
-       
+        if (!usuariosPesquisado) {
+            Util.aviso("Pesquise algum usuário antes de excluir!");
+            return;
+        }
+
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            Rtc_UsuariosDAO rtc_UsuariosDAO = new Rtc_UsuariosDAO();
+            rtc_UsuariosDAO.delete(viewBean());
+        }
+
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        usuariosPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_ExcluirActionPerformed
 
     private void jBtnRtc_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConfirmarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false,jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento,jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        RtcUsuario usuarios = viewBean();
+        Rtc_UsuariosDAO rtc_UsuariosDAO = new Rtc_UsuariosDAO();
+
+        if (incluir == true) {
+            rtc_UsuariosDAO.insert(viewBean());
+        } else {
+            rtc_UsuariosDAO.update(viewBean());
+        }
+
+        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
         Util.habilitar(true, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
     }//GEN-LAST:event_jBtnRtc_ConfirmarActionPerformed
 
     private void jBtnRtc_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_CancelarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true,jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento,jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);   
+        Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
+        usuariosPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_CancelarActionPerformed
 
     private void jBtnRtc_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_PesquisarActionPerformed
@@ -299,7 +349,7 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
         JDlgRtc_UsuariosPesquisar jDlgUsuariosPesquisar = new JDlgRtc_UsuariosPesquisar(null, true);
         jDlgUsuariosPesquisar.setTelaPai(this);
         jDlgUsuariosPesquisar.setVisible(true);
-        
+
     }//GEN-LAST:event_jBtnRtc_PesquisarActionPerformed
 
     private void jPwdRtc_SenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPwdRtc_SenhaActionPerformed
@@ -312,10 +362,12 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
 
     private void jBtnRtc_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_IncluirActionPerformed
         // TODO add your handling code here:
-       Util.habilitar(true,jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento,jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-       Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar); 
-       Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento,jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-       
+        Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Apelido, jFmtRtc_Cpf, jFmtRtc_DataNascimento, jPwdRtc_Senha, jChbRtc_Ativo, jCboRtc_Nivel, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        jTxtRtc_Codigo.grabFocus();
+        incluir = true;
+
     }//GEN-LAST:event_jBtnRtc_IncluirActionPerformed
 
     /**

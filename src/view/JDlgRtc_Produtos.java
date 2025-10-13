@@ -5,6 +5,8 @@
  */
 package view;
 
+import bean.RtcProduto;
+import dao.Rtc_ProdutosDAO;
 import tools.Util;
 import view.JDlgRtc_ProdutosPesquisar;
 
@@ -14,6 +16,9 @@ import view.JDlgRtc_ProdutosPesquisar;
  */
 public class JDlgRtc_Produtos extends javax.swing.JDialog {
 
+    boolean incluir = false;
+    private boolean produtoPesquisado = false;
+
     /**
      * Creates new form JDlgRtc_Produtos
      */
@@ -22,8 +27,35 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
         initComponents();
         setTitle("Cadastro de Produtos");
         setLocationRelativeTo(null);
-        
+
         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+    }
+
+    public RtcProduto viewBean() {
+        RtcProduto produto = new RtcProduto();
+        produto.setRtcIdproduto(Util.strToInt(jTxtRtc_Codigo.getText()));
+        produto.setRtcNome(jTxtRtc_Nome.getText());
+        produto.setRtcDescricao(jTxtRtc_Descricao.getText());
+        produto.setRtcMarca(jTxtRtc_Marca.getText());
+        produto.setRtcPreco(Util.strToDuble(jFmtRtc_Preco.getText()));
+
+        produto.setRtcCor(jCboRtc_Cor.getSelectedIndex() + 1);
+        produto.setRtcTipoProduto(jCboRtc_TipoProduto.getSelectedIndex() + 1);
+
+        return produto;
+    }
+
+    public void viewBean(RtcProduto produtos) {
+        jTxtRtc_Codigo.setText(String.valueOf(produtos.getRtcIdproduto()));
+        jTxtRtc_Nome.setText(String.valueOf(produtos.getRtcNome()));
+        jTxtRtc_Descricao.setText(String.valueOf(produtos.getRtcDescricao()));
+        jTxtRtc_Marca.setText(String.valueOf(produtos.getRtcMarca()));
+        jFmtRtc_Preco.setText(String.valueOf(produtos.getRtcPreco()));
+
+        jCboRtc_Cor.setSelectedIndex(produtos.getRtcCor() - 1);
+        jCboRtc_TipoProduto.setSelectedIndex(produtos.getRtcTipoProduto() - 1);
+
+        produtoPesquisado = true;
     }
 
     /**
@@ -247,14 +279,28 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
 
     private void jBtnRtc_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConfirmarActionPerformed
         // TODO add your handling code here:
-      Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-      Util.habilitar(true, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        RtcProduto produtos = viewBean();
+        Rtc_ProdutosDAO rtc_ProdutosDAO = new Rtc_ProdutosDAO();
+
+        if (incluir == true) {
+            rtc_ProdutosDAO.insert(viewBean());
+        } else {
+            rtc_ProdutosDAO.update(viewBean());
+        }
+
+        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(true, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
     }//GEN-LAST:event_jBtnRtc_ConfirmarActionPerformed
 
     private void jBtnRtc_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_CancelarActionPerformed
         // TODO add your handling code here:
-      Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-      Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
+        produtoPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_CancelarActionPerformed
 
     private void jBtnRtc_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_PesquisarActionPerformed
@@ -262,7 +308,7 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
         JDlgRtc_ProdutosPesquisar jDlgProdutosPesquisar = new JDlgRtc_ProdutosPesquisar(null, true);
         jDlgProdutosPesquisar.setTelaPai(this);
         jDlgProdutosPesquisar.setVisible(true);
-       
+
     }//GEN-LAST:event_jBtnRtc_PesquisarActionPerformed
 
     private void jTxtRtc_MarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtRtc_MarcaActionPerformed
@@ -282,17 +328,37 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
         Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
         Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
         Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        jTxtRtc_Codigo.grabFocus();
+        incluir = true;
     }//GEN-LAST:event_jBtnRtc_IncluirActionPerformed
 
     private void jBtnRtc_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarActionPerformed
         // TODO add your handling code here:
-      Util.habilitar(true, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-      Util.habilitar(false , jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        if (!produtoPesquisado) {
+            Util.aviso("Pesquise algum produto antes de alterar!");
+            return;
+        }
+
+        Util.habilitar(true, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        jTxtRtc_Nome.grabFocus();
+        incluir = false;
     }//GEN-LAST:event_jBtnRtc_AlterarActionPerformed
 
     private void jBtnRtc_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ExcluirActionPerformed
         // TODO add your handling code here:
-    
+        if (!produtoPesquisado) {
+            Util.aviso("Pesquise algum produto antes de excluir!");
+            return;
+        }
+
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            Rtc_ProdutosDAO rtc_ProdutosDAO = new Rtc_ProdutosDAO();
+            rtc_ProdutosDAO.delete(viewBean());
+        }
+
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Marca, jTxtRtc_Descricao, jFmtRtc_Preco, jCboRtc_Cor, jCboRtc_TipoProduto, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        produtoPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_ExcluirActionPerformed
 
     /**

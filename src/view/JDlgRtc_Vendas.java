@@ -21,6 +21,7 @@ import tools.Util;
 public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
     boolean incluir = false;
+    private boolean vendasPesquisado = false;
 
     /**
      * Creates new form JDlgVendas
@@ -67,11 +68,9 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         jTxtRtc_Total.setText(String.valueOf(vendas.getRtcTotal()));
         jTxtRtc_FormaPagamento.setText(vendas.getRtcFormapagamento());
         jTxtRtc_StatusVenda.setText(vendas.getRtcStatusvenda());
-    }
 
-    
-    
- 
+        vendasPesquisado = true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,7 +86,6 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jTxtRtc_Codigo = new javax.swing.JTextField();
         jFmtRtc_Data = new javax.swing.JFormattedTextField();
-        jCboRtc_Clientes = new javax.swing.JComboBox<RtcCliente>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jCboRtc_Vendedor = new javax.swing.JComboBox<RtcVendedor>();
@@ -107,6 +105,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         jTxtRtc_FormaPagamento = new javax.swing.JTextField();
         jTxtRtc_StatusVenda = new javax.swing.JTextField();
+        jCboRtc_Clientes = new javax.swing.JComboBox<RtcCliente>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -116,6 +115,11 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
         jLabel3.setText("Clientes");
 
+        try {
+            jFmtRtc_Data.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         jFmtRtc_Data.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFmtRtc_DataActionPerformed(evt);
@@ -238,8 +242,8 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
                             .addComponent(jTxtRtc_StatusVenda))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCboRtc_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jCboRtc_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -288,10 +292,10 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFmtRtc_Data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCboRtc_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCboRtc_Vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtRtc_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtRtc_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtRtc_Codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCboRtc_Clientes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -329,7 +333,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         // TODO add your handling code here:
         Util.habilitar(true, jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar, jBtnRtc_IncluirProd, jBtnRtc_AlterarProd, jBtnRtc_ExcluirProd);
         Util.habilitar(false, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnIncluir, jBtnRtc_Pesquisar);
-        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total);
+        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
         jTxtRtc_Codigo.grabFocus();
         incluir = true;
 
@@ -337,6 +341,11 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
     private void jBtnRtc_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarActionPerformed
         // TODO add your handling code here:
+        if (!vendasPesquisado) {
+            Util.aviso("Pesquise alguma venda antes de alterar!");
+            return;
+        }
+
         Util.habilitar(true, jFmtRtc_Data, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
         Util.habilitar(false, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnIncluir, jBtnRtc_Pesquisar);
         jFmtRtc_Data.grabFocus();
@@ -345,11 +354,17 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
     private void jBtnRtc_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ExcluirActionPerformed
         // TODO add your handling code here:
+        if (!vendasPesquisado) {
+            Util.aviso("Pesquise alguma venda antes de excluir!");
+            return;
+        }
+
         if (Util.perguntar("Deseja Excluir?") == true) {
             Rtc_VendasDAO rtc_VendasDAO = new Rtc_VendasDAO();
-            rtc_VendasDAO.insert(viewBean());
+            rtc_VendasDAO.delete(viewBean());
         }
         Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda);
+        vendasPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_ExcluirActionPerformed
 
     private void jBtnRtc_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConfirmarActionPerformed
@@ -362,10 +377,11 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         } else {
             rtc_VendasDAO.update(viewBean());
         }
-        rtc_VendasDAO.insert(vendas);
 
         Util.habilitar(false, jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar, jBtnRtc_IncluirProd, jBtnRtc_AlterarProd, jBtnRtc_ExcluirProd);
         Util.habilitar(true, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnIncluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
+
 
     }//GEN-LAST:event_jBtnRtc_ConfirmarActionPerformed
 
@@ -373,6 +389,9 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         // TODO add your handling code here:
         Util.habilitar(false, jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar, jBtnRtc_IncluirProd, jBtnRtc_AlterarProd, jBtnRtc_ExcluirProd);
         Util.habilitar(true, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnIncluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
+
+        vendasPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_CancelarActionPerformed
 
     private void jBtnRtc_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_PesquisarActionPerformed

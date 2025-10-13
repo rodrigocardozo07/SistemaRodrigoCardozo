@@ -5,6 +5,11 @@
  */
 package view;
 
+import bean.RtcVendedor;
+import dao.Rtc_ProdutosDAO;
+import dao.Rtc_VendedorDAO;
+import java.util.List;
+
 /**
  *
  * @author Jaque
@@ -12,15 +17,22 @@ package view;
 public class JDlgRtc_VendedorPesquisar extends javax.swing.JDialog {
 
     private JDlgRtc_Vendedor jDlgRtc_Vendedor;
+    Rtc_ControllerVendedor controllerVendedor;
 
     /**
      * Creates new form JDlgRtc_VendedorPesquisar
      */
     public JDlgRtc_VendedorPesquisar(java.awt.Frame parent, boolean modal) {
-         super(parent, modal);
+        super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Pesquisar Vendedores");
+
+        Rtc_VendedorDAO vendedorDAODAO = new Rtc_VendedorDAO();
+        List lista = (List) vendedorDAODAO.listAll();
+        controllerVendedor = new Rtc_ControllerVendedor();
+        controllerVendedor.setList(lista);
+        jTblRtc_VendedorPesquisar.setModel(controllerVendedor);
     }
 
     public void setTelaPai(JDlgRtc_Vendedor jDlgRtc_Vendedor) {
@@ -87,8 +99,10 @@ public class JDlgRtc_VendedorPesquisar extends javax.swing.JDialog {
 
     private void jBtnRtc_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_OkActionPerformed
         // TODO add your handling code here:
-         int linSel = jTblRtc_VendedorPesquisar.getSelectedRow();
-         setVisible(false);
+        int linSel = jTblRtc_VendedorPesquisar.getSelectedRow();
+        RtcVendedor vendedor = (RtcVendedor) controllerVendedor.getBean(linSel);
+        jDlgRtc_Vendedor.viewBean(vendedor);
+        setVisible(false);
     }//GEN-LAST:event_jBtnRtc_OkActionPerformed
 
     /**

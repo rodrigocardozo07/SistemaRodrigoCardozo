@@ -5,6 +5,8 @@
  */
 package view;
 
+import bean.RtcVendedor;
+import dao.Rtc_VendedorDAO;
 import tools.Util;
 import view.JDlgRtc_VendedorPesquisar;
 
@@ -14,6 +16,9 @@ import view.JDlgRtc_VendedorPesquisar;
  */
 public class JDlgRtc_Vendedor extends javax.swing.JDialog {
 
+    boolean incluir = false;
+    private boolean vendedorPesquisado = false;
+
     /**
      * Creates new form JDlgRtc_Vendedor
      */
@@ -22,8 +27,34 @@ public class JDlgRtc_Vendedor extends javax.swing.JDialog {
         initComponents();
         setTitle("Cadastro de Vendedores");
         setLocationRelativeTo(null);
-        
-        Util.habilitar(false, jTxtRtc_Codigo,jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
+        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+    }
+
+    public RtcVendedor viewBean() {
+        RtcVendedor vendedor = new RtcVendedor();
+        vendedor.setRtcIdvendedor(Util.strToInt(jTxtRtc_Codigo.getText()));
+        vendedor.setRtcNome(jTxtRtc_Nome.getText());
+        vendedor.setRtcEmail(jTxtRtc_Email.getText());
+        vendedor.setRtcEndereco(jTxtRtc_Endereco.getText());
+        vendedor.setRtcCidade(jTxtRtc_Cidade.getText());
+        vendedor.setRtcCnpj(jFmtRtc_Cnpj.getText());
+        vendedor.setRtcTelefone(jFmtRtc_Telefone.getText());
+
+        return vendedor;
+    }
+
+    public void viewBean(RtcVendedor vendedor) {
+        jTxtRtc_Codigo.setText(String.valueOf(vendedor.getRtcIdvendedor()));
+        jTxtRtc_Nome.setText(String.valueOf(vendedor.getRtcNome()));
+        jTxtRtc_Email.setText(String.valueOf(vendedor.getRtcEmail()));
+        jTxtRtc_Endereco.setText(String.valueOf(vendedor.getRtcEndereco()));
+        jTxtRtc_Cidade.setText(String.valueOf(vendedor.getRtcCidade()));
+
+        jFmtRtc_Cnpj.setText(Util.formatarCnpj(vendedor.getRtcCnpj()));
+        jFmtRtc_Telefone.setText(Util.formatarCelular(vendedor.getRtcTelefone()));
+
+        vendedorPesquisado = true;
     }
 
     /**
@@ -236,8 +267,11 @@ public class JDlgRtc_Vendedor extends javax.swing.JDialog {
 
     private void jBtnRtc_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_CancelarActionPerformed
         // TODO add your handling code here:
-      Util.habilitar(true,jTxtRtc_Codigo,jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar );
-      Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar );
+        Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
+        vendedorPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_CancelarActionPerformed
 
     private void jBtnRtc_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_PesquisarActionPerformed
@@ -245,7 +279,7 @@ public class JDlgRtc_Vendedor extends javax.swing.JDialog {
         JDlgRtc_VendedorPesquisar jDlgVendedorPesquisar = new JDlgRtc_VendedorPesquisar(null, true);
         jDlgVendedorPesquisar.setTelaPai(this);
         jDlgVendedorPesquisar.setVisible(true);
-      
+
     }//GEN-LAST:event_jBtnRtc_PesquisarActionPerformed
 
     private void jTxtRtc_CodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtRtc_CodigoActionPerformed
@@ -254,26 +288,57 @@ public class JDlgRtc_Vendedor extends javax.swing.JDialog {
 
     private void jBtnRtc_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_IncluirActionPerformed
         // TODO add your handling code here:
-      Util.habilitar(true,jTxtRtc_Codigo,jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar );
-      Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar );
-      Util.limpar(jTxtRtc_Codigo,jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar );
+        Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        jTxtRtc_Codigo.grabFocus();
+        incluir = true;
     }//GEN-LAST:event_jBtnRtc_IncluirActionPerformed
 
     private void jBtnRtc_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar );
-      Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar );
+        if (!vendedorPesquisado) {
+            Util.aviso("Pesquise um vendedor antes de alterar!");
+            return;
+        }
+
+        Util.habilitar(true, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        jTxtRtc_Nome.grabFocus();
+        incluir = false;
     }//GEN-LAST:event_jBtnRtc_AlterarActionPerformed
 
     private void jBtnRtc_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ExcluirActionPerformed
         // TODO add your handling code here:
-       
+        if (!vendedorPesquisado) {
+            Util.aviso("Pesquise um vendedor antes de excluir!");
+            return;
+        }
+
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            Rtc_VendedorDAO rtc_VendedorDAO = new Rtc_VendedorDAO();
+            rtc_VendedorDAO.delete(viewBean());
+        }
+
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        vendedorPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_ExcluirActionPerformed
 
     private void jBtnRtc_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConfirmarActionPerformed
         // TODO add your handling code here:
-       Util.habilitar(false,jTxtRtc_Codigo,jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar );
-      Util.habilitar(true, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar );
+        RtcVendedor vendedor = viewBean();
+        Rtc_VendedorDAO rtc_VendedorDAO = new Rtc_VendedorDAO();
+
+        if (incluir == true) {
+            rtc_VendedorDAO.insert(vendedor);
+        } else {
+            rtc_VendedorDAO.update(vendedor);
+        }
+
+        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(true, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jFmtRtc_Cnpj, jFmtRtc_Telefone, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
     }//GEN-LAST:event_jBtnRtc_ConfirmarActionPerformed
 
     /**

@@ -59,8 +59,13 @@ public class Util {
     }
 
     public static boolean perguntar(String cad) {
-        JOptionPane.showConfirmDialog(null, cad);
-        return true;
+        int resp = JOptionPane.showConfirmDialog(null, cad,
+                "Perguntar", JOptionPane.YES_NO_OPTION);
+        return resp == JOptionPane.YES_NO_OPTION;
+    }
+
+    public static void aviso(String cad) {
+        JOptionPane.showMessageDialog(null, cad, "Aviso", JOptionPane.WARNING_MESSAGE);
     }
 
     public static int strToInt(String cad) {
@@ -75,10 +80,10 @@ public class Util {
     }
 
     public static double strToDuble(String cad) {
-        if (cad == null || cad.isEmpty()) {
+        if (cad == null || cad.trim().isEmpty()) {
             return 0.0;
         }
-        return Double.parseDouble(cad);
+        return Double.parseDouble(cad.replace(",", "."));
     }
 
     public static String doubleToStr(double num) {
@@ -103,6 +108,44 @@ public class Util {
         }
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         return formato.format(data);
+    }
+
+    public static String formatarCpf(String cpf) {
+        if (cpf == null || cpf.length() != 11) {
+            return cpf;
+        }
+        return cpf.substring(0, 3) + "." + cpf.substring(3, 6) + "."
+                + cpf.substring(6, 9) + "-" + cpf.substring(9);
+    }
+
+    public static String formatarCep(String cep) {
+        if (cep == null || cep.length() != 8) {
+            return cep;
+        }
+        return cep.substring(0, 5) + "-" + cep.substring(5);
+    }
+
+    public static String formatarCelular(String celular) {
+        if (celular == null) {
+            return "";
+        }
+        if (celular.length() == 11) {
+            return "(" + celular.substring(0, 2) + ") " + celular.substring(2, 7)
+                    + "-" + celular.substring(7);
+        } else if (celular.length() == 10) {
+            return "(" + celular.substring(0, 2) + ") " + celular.substring(2, 6)
+                    + "-" + celular.substring(6);
+        }
+        return celular;
+    }
+
+    public static String formatarCnpj(String cnpj) {
+        if (cnpj == null || cnpj.length() != 14) {
+            return cnpj;
+        }
+        return cnpj.substring(0, 2) + "." + cnpj.substring(2, 5) + "."
+                + cnpj.substring(5, 8) + "/" + cnpj.substring(8, 12) + "-"
+                + cnpj.substring(12);
     }
 
     public static void habilitar(boolean b, JTextField jTxtRtc_Codigo, JTextField jTxtRtc_Nome, JTextField jTxtRtc_Email, JTextField jTxtRtc_Endereco, JTextField jTxtRtc_Bairro, JTextField jTxtRtc_Cidade, JTextField jTxtRtc_Estado, JFormattedTextField jFmtRtc_Cep, JFormattedTextField jFmtRtc_Cpf, JFormattedTextField jFmtRtc_Celular, JFormattedTextField jFmtRtc_DataNascimento, JFormattedTextField jFmtRtc_DataCadastro, JComboBox<String> jCboRtc_TipoCliente, ButtonGroup btnGpSexo, JCheckBox jChbRtc_Ativo, JButton jBtnRtc_Confirmar, JButton jBtnRtc_Cancelar) {

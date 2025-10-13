@@ -5,6 +5,10 @@
  */
 package view;
 
+import bean.RtcCliente;
+import com.sun.webkit.CursorManager;
+import dao.Rtc_ClientesDAO;
+import java.util.List;
 import tools.Util;
 import view.JDlgRtc_ClientesPesquisar;
 
@@ -14,6 +18,9 @@ import view.JDlgRtc_ClientesPesquisar;
  */
 public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
+    boolean incluir = false;
+    private boolean clientePesquisado = false;
+
     /**
      * Creates new form JDlgRtc_Clientes
      */
@@ -22,8 +29,72 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
         initComponents();
         setTitle("Cadastro de Clientes");
         setLocationRelativeTo(null);
-        
-        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);    }
+
+        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+
+    }
+
+    public RtcCliente viewBean() {
+        RtcCliente cliente = new RtcCliente();
+        cliente.setRtcIdcliente(Util.strToInt(jTxtRtc_Codigo.getText()));
+        cliente.setRtcNome(jTxtRtc_Nome.getText());
+        cliente.setRtcEmail(jTxtRtc_Email.getText());
+        cliente.setRtcEndereco(jTxtRtc_Endereco.getText());
+        cliente.setRtcCidade(jTxtRtc_Cidade.getText());
+        cliente.setRtcBairro(jTxtRtc_Bairro.getText());
+        cliente.setRtcEstado(jTxtRtc_Estado.getText());
+        cliente.setRtcCep(jFmtRtc_Cep.getText());
+        cliente.setRtcCpf(jFmtRtc_Cpf.getText());
+        cliente.setRtcCelular(jFmtRtc_Celular.getText());
+        cliente.setRtcDataCadastro(Util.strToDate(jFmtRtc_DataCadastro.getText()));
+        cliente.setRtcDataNascimento(Util.strToDate(jFmtRtc_DataNascimento.getText()));
+        cliente.setRtcTipoCliente(jCboRtc_TipoCliente.getSelectedIndex());
+        cliente.setRtcAtivo(jChbRtc_Ativo.isSelected() ? "S" : "N");
+
+        if (jRdBtnRtc_M.isSelected()) {
+            cliente.setRtcSexo("M");
+        } else if (jRdBtnRtc_F.isSelected()) {
+            cliente.setRtcSexo("F");
+        } else {
+            cliente.setRtcSexo(null); // ou "" dependendo do seu bean
+        }
+
+        return cliente;
+    }
+
+    public void viewBean(RtcCliente clientes) {
+        jTxtRtc_Codigo.setText(String.valueOf(clientes.getRtcIdcliente()));
+        jTxtRtc_Nome.setText(String.valueOf(clientes.getRtcNome()));
+        jTxtRtc_Estado.setText(String.valueOf(clientes.getRtcEstado()));
+        jTxtRtc_Endereco.setText(String.valueOf(clientes.getRtcEndereco()));
+        jTxtRtc_Email.setText(String.valueOf(clientes.getRtcEmail()));
+        jTxtRtc_Cidade.setText(String.valueOf(clientes.getRtcCidade()));
+        jTxtRtc_Bairro.setText(String.valueOf(clientes.getRtcBairro()));
+
+        jFmtRtc_Celular.setText(Util.formatarCelular(clientes.getRtcCelular()));
+        jFmtRtc_Cep.setText(Util.formatarCep(clientes.getRtcCep()));
+        jFmtRtc_Cpf.setText(Util.formatarCpf(clientes.getRtcCpf()));
+
+        jFmtRtc_DataCadastro.setText(Util.dateToStr(clientes.getRtcDataCadastro()));
+        jFmtRtc_DataNascimento.setText(Util.dateToStr(clientes.getRtcDataNascimento()));
+        jCboRtc_TipoCliente.setSelectedIndex(clientes.getRtcTipoCliente());
+        if (clientes.getRtcAtivo().equals("S")) {
+            jChbRtc_Ativo.setSelected(true);
+        } else {
+            jChbRtc_Ativo.setSelected(false);
+        }
+
+        String sexo = clientes.getRtcSexo();
+        if (sexo != null) {
+            if (sexo.equalsIgnoreCase("M")) {
+                jRdBtnRtc_M.setSelected(true);
+            } else if (sexo.equalsIgnoreCase("F")) {
+                jRdBtnRtc_F.setSelected(true);
+            }
+        }
+
+        clientePesquisado = true;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,6 +105,7 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnRtc_GrupoSexo = new javax.swing.ButtonGroup();
         jLabel12 = new javax.swing.JLabel();
         jFmtRtc_DataCadastro = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -76,11 +148,17 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
         jLabel12.setText("Data de Cadastro");
 
+        try {
+            jFmtRtc_DataCadastro.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         jLabel2.setText("Nome");
 
         jLabel13.setText("Tipo de Cliente");
 
-        jCboRtc_TipoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCboRtc_TipoCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gamer", "Designer", "Normal", "Colaborador ", "Expert " }));
 
         jLabel3.setText("E-mail");
 
@@ -90,8 +168,10 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
         jLabel4.setText("Endereço");
 
+        btnRtc_GrupoSexo.add(jRdBtnRtc_M);
         jRdBtnRtc_M.setText("M");
 
+        btnRtc_GrupoSexo.add(jRdBtnRtc_F);
         jRdBtnRtc_F.setText("F");
 
         jLabel5.setText("Bairro");
@@ -116,6 +196,11 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
         jBtnRtc_Excluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Excluir.png"))); // NOI18N
         jBtnRtc_Excluir.setText("Excluir");
+        jBtnRtc_Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRtc_ExcluirActionPerformed(evt);
+            }
+        });
 
         jBtnRtc_Confirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         jBtnRtc_Confirmar.setText("Confirmar");
@@ -145,11 +230,35 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
         jLabel8.setText("CEP");
 
+        try {
+            jFmtRtc_Cep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         jLabel9.setText("CPF");
 
         jLabel10.setText("Celular");
 
+        try {
+            jFmtRtc_Cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jFmtRtc_Celular.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         jLabel11.setText("Data de Nascimento");
+
+        try {
+            jFmtRtc_DataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel1.setText("Código");
 
@@ -306,27 +415,50 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
     private void jBtnRtc_IncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_IncluirActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(true ,jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar );
-        Util.habilitar(false , jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
-        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M );
+        Util.habilitar(true, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M);
+        jTxtRtc_Codigo.grabFocus();
+        incluir = true;
     }//GEN-LAST:event_jBtnRtc_IncluirActionPerformed
 
     private void jBtnRtc_AlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarActionPerformed
         // TODO add your handling code here:
+        if (!clientePesquisado) {
+            Util.aviso("Pesquise algum cliente antes de alterar!");
+            return;
+        }
+
         Util.habilitar(true, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-        Util.habilitar(false , jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.habilitar(false, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        jTxtRtc_Nome.grabFocus();
+        incluir = false;
     }//GEN-LAST:event_jBtnRtc_AlterarActionPerformed
 
     private void jBtnRtc_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConfirmarActionPerformed
         // TODO add your handling code here:
-         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-         Util.habilitar(true , jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        RtcCliente clientes = viewBean();
+        Rtc_ClientesDAO rtc_ClientesDAO = new Rtc_ClientesDAO();
+
+        if (incluir == true) {
+            rtc_ClientesDAO.insert(viewBean());
+        } else {
+            rtc_ClientesDAO.update(viewBean());
+        }
+
+        Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
+        Util.habilitar(true, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M);
+
     }//GEN-LAST:event_jBtnRtc_ConfirmarActionPerformed
 
     private void jBtnRtc_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_CancelarActionPerformed
         // TODO add your handling code here:
         Util.habilitar(false, jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M, jBtnRtc_Confirmar, jBtnRtc_Cancelar);
-        Util.habilitar(true , jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.habilitar(true, jBtnRtc_Incluir, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnRtc_Pesquisar);
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M);
+
+        clientePesquisado = false;
     }//GEN-LAST:event_jBtnRtc_CancelarActionPerformed
 
     private void jBtnRtc_PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_PesquisarActionPerformed
@@ -335,6 +467,22 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
         jDlgClientesPesquisar.setTelaPai(this);
         jDlgClientesPesquisar.setVisible(true);
     }//GEN-LAST:event_jBtnRtc_PesquisarActionPerformed
+
+    private void jBtnRtc_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ExcluirActionPerformed
+        // TODO add your handling code here:
+        if (!clientePesquisado) {
+            Util.aviso("Pesquise algum cliente antes de excluir!");
+            return;
+        }
+
+        if (Util.perguntar("Deseja Excluir?") == true) {
+            Rtc_ClientesDAO rtc_ClientesDAO = new Rtc_ClientesDAO();
+            rtc_ClientesDAO.delete(viewBean());
+        }
+
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Nome, jTxtRtc_Email, jTxtRtc_Endereco, jTxtRtc_Cidade, jTxtRtc_Bairro, jTxtRtc_Estado, jFmtRtc_Cep, jFmtRtc_Cpf, jFmtRtc_Celular, jFmtRtc_DataCadastro, jFmtRtc_DataNascimento, jCboRtc_TipoCliente, jChbRtc_Ativo, jRdBtnRtc_F, jRdBtnRtc_M);
+        clientePesquisado = false;
+    }//GEN-LAST:event_jBtnRtc_ExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,6 +527,7 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup btnRtc_GrupoSexo;
     private javax.swing.JButton jBtnRtc_Alterar;
     private javax.swing.JButton jBtnRtc_Cancelar;
     private javax.swing.JButton jBtnRtc_Confirmar;
