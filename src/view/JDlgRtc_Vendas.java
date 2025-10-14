@@ -69,7 +69,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
     
     private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
         textComponent.setText(placeholder);
-        textComponent.setForeground(java.awt.Color.GRAY);
+        textComponent.setForeground(java.awt.Color.BLACK);
 
         textComponent.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override
@@ -375,7 +375,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         // TODO add your handling code here:
         Util.habilitar(true, jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar, jBtnRtc_IncluirProd, jBtnRtc_AlterarProd, jBtnRtc_ExcluirProd);
         Util.habilitar(false, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnIncluir, jBtnRtc_Pesquisar);
-        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
+        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
         jTxtRtc_Codigo.grabFocus();
         incluir = true;
 
@@ -422,7 +422,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
         Util.habilitar(false, jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar, jBtnRtc_IncluirProd, jBtnRtc_AlterarProd, jBtnRtc_ExcluirProd);
         Util.habilitar(true, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnIncluir, jBtnRtc_Pesquisar);
-        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
+        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
 
 
     }//GEN-LAST:event_jBtnRtc_ConfirmarActionPerformed
@@ -431,7 +431,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         // TODO add your handling code here:
         Util.habilitar(false, jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar, jBtnRtc_IncluirProd, jBtnRtc_AlterarProd, jBtnRtc_ExcluirProd);
         Util.habilitar(true, jBtnRtc_Alterar, jBtnRtc_Excluir, jBtnIncluir, jBtnRtc_Pesquisar);
-        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
+        Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jTxtRtc_Total);
 
         vendasPesquisado = false;
     }//GEN-LAST:event_jBtnRtc_CancelarActionPerformed

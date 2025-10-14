@@ -139,8 +139,8 @@ public class JFrmRtc_Principal extends javax.swing.JFrame {
 
     private void jMnuRtc_VendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuRtc_VendasActionPerformed
         // TODO add your handling code here:
-       // JDlgRtc_Vendas jDlgVendas = new JDlgRtc_Vendas(this, true);
-        //jDlgVendas.setVisible(true);
+        JDlgRtc_Vendas jDlgVendas = new JDlgRtc_Vendas(this, true);
+        jDlgVendas.setVisible(true);
     }//GEN-LAST:event_jMnuRtc_VendasActionPerformed
 
     private void JMnuRtc_UsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMnuRtc_UsuariosActionPerformed

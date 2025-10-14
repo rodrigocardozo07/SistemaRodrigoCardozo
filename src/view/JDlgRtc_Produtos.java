@@ -48,7 +48,7 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
     }
 
     private void addPlaceholder(javax.swing.JTextField field, String placeholder) {
-        field.setForeground(java.awt.Color.GRAY);
+        field.setForeground(java.awt.Color.BLACK);
         field.setText(placeholder);
 
         field.addFocusListener(new java.awt.event.FocusAdapter() {

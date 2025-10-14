@@ -62,7 +62,7 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
 
     private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
         textComponent.setText(placeholder);
-        textComponent.setForeground(java.awt.Color.GRAY);
+        textComponent.setForeground(java.awt.Color.BLACK);
 
         textComponent.addFocusListener(new java.awt.event.FocusAdapter() {
             @Override

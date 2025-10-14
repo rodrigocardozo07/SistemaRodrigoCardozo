@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="rtc_vendas"
-    ,catalog="vendas"
+    ,catalog="db_rodrigo_cardozo"
 )
 public class RtcVendas  implements java.io.Serializable {
 
