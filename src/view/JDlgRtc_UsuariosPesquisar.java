@@ -8,6 +8,7 @@ package view;
 import bean.RtcUsuario;
 import dao.Rtc_UsuariosDAO;
 import java.util.List;
+import tools.Util;
 
 /**
  *
@@ -64,6 +65,11 @@ public class JDlgRtc_UsuariosPesquisar extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTblRtc_UsuariosPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTblRtc_UsuariosPesquisarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTblRtc_UsuariosPesquisar);
 
         jBtnRtc_Ok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
@@ -97,11 +103,21 @@ public class JDlgRtc_UsuariosPesquisar extends javax.swing.JDialog {
 
     private void jBtnRtc_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_OkActionPerformed
         // TODO add your handling code here:
-         int linSel = jTblRtc_UsuariosPesquisar.getSelectedRow();
-         RtcUsuario usuarios = (RtcUsuario) controllerUsuarios.getBean(linSel);
-        jDlgRtc_Usuarios.viewBean(usuarios);
-         setVisible(false);
+          if(jTblRtc_UsuariosPesquisar.getSelectedRow() == -1){
+            Util.mensagem("Nenhuma linha selecionada.");
+        } else {
+            RtcUsuario usuarios =  controllerUsuarios.getBean( jTblRtc_UsuariosPesquisar.getSelectedRow() );
+            jDlgRtc_Usuarios.beanView(usuarios);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jBtnRtc_OkActionPerformed
+
+    private void jTblRtc_UsuariosPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblRtc_UsuariosPesquisarMouseClicked
+        // TODO add your handling code here:
+         if(evt.getClickCount() == 2){
+            jBtnRtc_OkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTblRtc_UsuariosPesquisarMouseClicked
 
     /**
      * @param args the command line arguments

@@ -84,7 +84,7 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
         return usuario;
     }
 
-    public void viewBean(RtcUsuario usuarios) {
+    public void beanView(RtcUsuario usuarios) {
         jTxtRtc_Codigo.setText(String.valueOf(usuarios.getRtcIdusuarios()));
         jTxtRtc_Nome.setText(String.valueOf(usuarios.getRtcNome()));
         jTxtRtc_Apelido.setText(String.valueOf(usuarios.getRtcApelido()));

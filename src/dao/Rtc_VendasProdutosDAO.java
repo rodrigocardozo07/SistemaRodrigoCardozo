@@ -54,7 +54,7 @@ public class Rtc_VendasProdutosDAO extends Rtc_AbstractDAO{
     public Object listProdutos(RtcVendas rtcVendas) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(RtcVendasProdutos.class);
-        criteria.add(Restrictions.eq("vendas", rtcVendas) );
+        criteria.add(Restrictions.eq("rtcVendas", rtcVendas) );
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
@@ -67,5 +67,10 @@ public class Rtc_VendasProdutosDAO extends Rtc_AbstractDAO{
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;
+    }
+    
+     public static void main(String[] args) {
+        Rtc_VendasProdutosDAO rtc_VendasProdutosDAO = new Rtc_VendasProdutosDAO();
+        rtc_VendasProdutosDAO.listAll();
     }
 }

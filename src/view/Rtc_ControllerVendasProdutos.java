@@ -23,8 +23,8 @@ public class Rtc_ControllerVendasProdutos extends AbstractTableModel {
         this.fireTableDataChanged();
     }
 
-    public RtcVendas getBean(int rowIndex) {
-        return (RtcVendas) lstVendasProd.get(rowIndex);
+    public RtcVendasProdutos getBean(int rowIndex) {
+        return (RtcVendasProdutos) lstVendasProd.get(rowIndex);
     }
     
     public void addBean(RtcVendasProdutos rtcVendasProdutos){
@@ -39,29 +39,29 @@ public class Rtc_ControllerVendasProdutos extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if (lstVendasProd == null) {
-            return 0;  // Retorna 0 se a lista for null
-        }
-        return lstVendasProd.size();
+         return lstVendasProd.size();
 
     }
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        RtcVendas rtc_Vendas = (RtcVendas) lstVendasProd.get(rowIndex);
+        RtcVendasProdutos rtc_VendasProdutos = (RtcVendasProdutos) lstVendasProd.get(rowIndex);
         if (columnIndex == 0) {
-            return rtc_Vendas.getRtcIdvenda();
+            return rtc_VendasProdutos.getRtcProduto().getRtcIdproduto();
         } else if (columnIndex == 1) {
-            return rtc_Vendas.getRtcCliente();
+            return rtc_VendasProdutos.getRtcProduto().getRtcNome();
         } else if (columnIndex == 2) {
-            return rtc_Vendas.getRtcVendedor();
+            return rtc_VendasProdutos.getRtcQuantidade();
         } else if (columnIndex == 3) {
-            return rtc_Vendas.getRtcDatavenda();
+            return rtc_VendasProdutos.getRtcValorunitario();
+        } 
+        else if (columnIndex == 4) {
+            return rtc_VendasProdutos.getRtcDesconto();
         }
         return "";
     }
@@ -71,10 +71,12 @@ public class Rtc_ControllerVendasProdutos extends AbstractTableModel {
         if (columnIndex == 0) {
             return "Num Venda";
         } else if (columnIndex == 1) {
-            return "Quantidade";
+            return "Nome";
         } else if (columnIndex == 2) {
-            return "Valor Unitário";
+            return "Quantidade";
         } else if (columnIndex == 3) {
+            return "Valor Unitário";
+        } else if (columnIndex == 4) {
             return "Desconto";
         }
         return "";

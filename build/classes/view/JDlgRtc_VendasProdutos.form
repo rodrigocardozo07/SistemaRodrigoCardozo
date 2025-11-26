@@ -111,6 +111,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtRtc_Quantidade">
       <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxtRtc_QuantidadeActionPerformed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTxtRtc_QuantidadeKeyReleased"/>
       </Events>
     </Component>

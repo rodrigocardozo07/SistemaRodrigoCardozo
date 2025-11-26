@@ -84,7 +84,7 @@ public class JDlgRtc_Produtos extends javax.swing.JDialog {
         return produto;
     }
 
-    public void viewBean(RtcProduto produtos) {
+    public void beanView(RtcProduto produtos) {
         jTxtRtc_Codigo.setText(String.valueOf(produtos.getRtcIdproduto()));
         jTxtRtc_Nome.setText(String.valueOf(produtos.getRtcNome()));
         jTxtRtc_Descricao.setText(String.valueOf(produtos.getRtcDescricao()));

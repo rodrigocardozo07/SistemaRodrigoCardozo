@@ -200,6 +200,11 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTblRtc_VendasProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTblRtc_VendasProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTblRtc_VendasProdutos);
 
         jBtnIncluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
@@ -301,7 +306,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jCboRtc_Vendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTxtRtc_Total, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
@@ -312,18 +317,17 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jBtnIncluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jBtnRtc_Alterar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jBtnRtc_Excluir)
-                                .addGap(14, 14, 14)
-                                .addComponent(jBtnRtc_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jBtnRtc_Excluir)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBtnRtc_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jBtnRtc_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jBtnRtc_Pesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jBtnRtc_Pesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jScrollPane1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,15 +371,13 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
                         .addComponent(jBtnRtc_ExcluirProd))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtnIncluir)
-                        .addComponent(jBtnRtc_Alterar)
-                        .addComponent(jBtnRtc_Excluir))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBtnRtc_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jBtnRtc_Cancelar)
-                        .addComponent(jBtnRtc_Pesquisar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnIncluir)
+                    .addComponent(jBtnRtc_Alterar)
+                    .addComponent(jBtnRtc_Excluir)
+                    .addComponent(jBtnRtc_Confirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnRtc_Cancelar)
+                    .addComponent(jBtnRtc_Pesquisar))
                 .addGap(31, 31, 31))
         );
 
@@ -474,12 +476,20 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
     private void jBtnRtc_ExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ExcluirProdActionPerformed
         // TODO add your handling code here:
-      if (Util.perguntar("Deseja excluir o produto ?")== true) {
+         
+         if (jTblRtc_VendasProdutos.getSelectedRow() == -1) { // aqui está verificando se a linha está realmente selecionada 
+            Util.aviso("Pesquise algum Produto antes de excluir!");
+            return;
+}
+        
+        if (Util.perguntar("Deseja excluir o produto ?")== true) {
             int ind = jTblRtc_VendasProdutos.getSelectedRow();
             rtc_ControllerVendasProdutos.removeBean(ind);
+            
+             Util.limpar(jTxtRtc_Codigo, jTxtRtc_Total,jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda ,jCboRtc_Clientes, jCboRtc_Vendedor, jFmtRtc_Data);
+            // rtc_ControllerVendasProdutos.setList(new ArrayList()); Isso aqui exclui toda a lista
         }
-        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Total,jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda ,jCboRtc_Clientes, jCboRtc_Vendedor, jFmtRtc_Data);
-        rtc_ControllerVendasProdutos.setList(new ArrayList());
+       
     }//GEN-LAST:event_jBtnRtc_ExcluirProdActionPerformed
 
     private void jBtnRtc_IncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_IncluirProdActionPerformed
@@ -498,6 +508,11 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
     private void jCboRtc_VendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboRtc_VendedorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCboRtc_VendedorActionPerformed
+
+    private void jTblRtc_VendasProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblRtc_VendasProdutosMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTblRtc_VendasProdutosMouseClicked
 
     /**
      * @param args the command line arguments

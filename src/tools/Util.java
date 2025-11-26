@@ -61,7 +61,7 @@ public class Util {
     public static boolean perguntar(String cad) {
         int resp = JOptionPane.showConfirmDialog(null, cad,
                 "Perguntar", JOptionPane.YES_NO_OPTION);
-        return resp == JOptionPane.YES_NO_OPTION;
+        return resp == JOptionPane.YES_OPTION;
     }
 
     public static void aviso(String cad) {

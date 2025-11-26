@@ -8,6 +8,7 @@ package view;
 import bean.RtcCliente;
 import dao.Rtc_ClientesDAO;
 import java.util.List;
+import tools.Util;
 
 /**
  *
@@ -65,6 +66,16 @@ public class JDlgRtc_ClientesPesquisar extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTblRtc_ClientesPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTblRtc_ClientesPesquisarMouseClicked(evt);
+            }
+        });
+        jTblRtc_ClientesPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTblRtc_ClientesPesquisarKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTblRtc_ClientesPesquisar);
 
         jBtnRtc_Ok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
@@ -98,11 +109,25 @@ public class JDlgRtc_ClientesPesquisar extends javax.swing.JDialog {
 
     private void jBtnRtc_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_OkActionPerformed
         // TODO add your handling code here:
-         int linSel = jTblRtc_ClientesPesquisar.getSelectedRow();
-         RtcCliente clientes = (RtcCliente) controllerClientes.getBean(linSel);
-        jDlgRtc_Clientes.viewBean(clientes);
-          setVisible(false);
+          if(jTblRtc_ClientesPesquisar.getSelectedRow() == -1){
+            Util.mensagem("Nenhuma linha selecionada.");
+        } else {
+            RtcCliente clientes =  controllerClientes.getBean( jTblRtc_ClientesPesquisar.getSelectedRow() );
+            jDlgRtc_Clientes.beanView(clientes);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jBtnRtc_OkActionPerformed
+
+    private void jTblRtc_ClientesPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTblRtc_ClientesPesquisarKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTblRtc_ClientesPesquisarKeyReleased
+
+    private void jTblRtc_ClientesPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblRtc_ClientesPesquisarMouseClicked
+        // TODO add your handling code here:
+         if(evt.getClickCount() == 2){
+            jBtnRtc_OkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTblRtc_ClientesPesquisarMouseClicked
 
     /**
      * @param args the command line arguments

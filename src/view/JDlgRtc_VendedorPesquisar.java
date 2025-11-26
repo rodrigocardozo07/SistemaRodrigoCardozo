@@ -9,6 +9,7 @@ import bean.RtcVendedor;
 import dao.Rtc_ProdutosDAO;
 import dao.Rtc_VendedorDAO;
 import java.util.List;
+import tools.Util;
 
 /**
  *
@@ -65,6 +66,11 @@ public class JDlgRtc_VendedorPesquisar extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTblRtc_VendedorPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTblRtc_VendedorPesquisarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTblRtc_VendedorPesquisar);
 
         jBtnRtc_Ok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
@@ -99,11 +105,21 @@ public class JDlgRtc_VendedorPesquisar extends javax.swing.JDialog {
 
     private void jBtnRtc_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_OkActionPerformed
         // TODO add your handling code here:
-        int linSel = jTblRtc_VendedorPesquisar.getSelectedRow();
-        RtcVendedor vendedor = (RtcVendedor) controllerVendedor.getBean(linSel);
-        jDlgRtc_Vendedor.viewBean(vendedor);
-        setVisible(false);
+         if(jTblRtc_VendedorPesquisar.getSelectedRow() == -1){
+            Util.mensagem("Nenhuma linha selecionada.");
+        } else {
+            RtcVendedor vendedor =  controllerVendedor.getBean( jTblRtc_VendedorPesquisar.getSelectedRow() );
+            jDlgRtc_Vendedor.beanView(vendedor);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jBtnRtc_OkActionPerformed
+
+    private void jTblRtc_VendedorPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblRtc_VendedorPesquisarMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+            jBtnRtc_OkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTblRtc_VendedorPesquisarMouseClicked
 
     /**
      * @param args the command line arguments

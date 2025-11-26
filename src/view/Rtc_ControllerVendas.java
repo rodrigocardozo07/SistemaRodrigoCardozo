@@ -27,10 +27,7 @@ public class Rtc_ControllerVendas extends AbstractTableModel {
 
     @Override
     public int getRowCount() {
-        if (lstVendas == null) {
-            return 0;  // Retorna 0 se a lista for null
-        }
-        return lstVendas.size();
+       return lstVendas.size();
 
     }
 

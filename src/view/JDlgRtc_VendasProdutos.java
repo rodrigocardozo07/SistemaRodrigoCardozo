@@ -36,9 +36,8 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
             jCboRtc_Produtos.addItem( (RtcProduto) lista.get(i));            
         }
         
-        addPlaceholder(jTxtRtc_Quantidade, "Ex: 1");
-        addPlaceholder(jTxtRtc_ValorUnitario, "0,00");
-        addPlaceholder(jTxtRtc_Desconto, "0,00");
+  
+        
         
        
         jCboRtc_Produtos.setToolTipText("Selecione o produto para adicionar à venda");
@@ -108,6 +107,11 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
 
         jLabel2.setText("Quantidade");
 
+        jTxtRtc_Quantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtRtc_QuantidadeActionPerformed(evt);
+            }
+        });
         jTxtRtc_Quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTxtRtc_QuantidadeKeyReleased(evt);
@@ -223,6 +227,10 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
             jTxtRtc_Desconto.setText("");
         }
     }//GEN-LAST:event_jTxtRtc_QuantidadeKeyReleased
+
+    private void jTxtRtc_QuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtRtc_QuantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtRtc_QuantidadeActionPerformed
 
     /**
      * @param args the command line arguments

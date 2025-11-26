@@ -111,7 +111,7 @@ public class JDlgRtc_Clientes extends javax.swing.JDialog {
         return cliente;
     }
 
-    public void viewBean(RtcCliente clientes) {
+    public void beanView(RtcCliente clientes) {
         jTxtRtc_Codigo.setText(String.valueOf(clientes.getRtcIdcliente()));
         jTxtRtc_Nome.setText(String.valueOf(clientes.getRtcNome()));
         jTxtRtc_Estado.setText(String.valueOf(clientes.getRtcEstado()));

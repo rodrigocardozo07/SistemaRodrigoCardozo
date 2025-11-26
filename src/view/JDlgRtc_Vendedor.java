@@ -83,7 +83,7 @@ public class JDlgRtc_Vendedor extends javax.swing.JDialog {
         return vendedor;
     }
 
-    public void viewBean(RtcVendedor vendedor) {
+    public void beanView(RtcVendedor vendedor) {
         jTxtRtc_Codigo.setText(String.valueOf(vendedor.getRtcIdvendedor()));
         jTxtRtc_Nome.setText(String.valueOf(vendedor.getRtcNome()));
         jTxtRtc_Email.setText(String.valueOf(vendedor.getRtcEmail()));
