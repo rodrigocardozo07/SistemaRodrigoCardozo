@@ -61,7 +61,7 @@ public class Rtc_ControllerVendasProdutos extends AbstractTableModel {
             return rtc_VendasProdutos.getRtcValorunitario();
         } 
         else if (columnIndex == 4) {
-            return rtc_VendasProdutos.getRtcDesconto();
+            return rtc_VendasProdutos.getRtcQuantidade()* rtc_VendasProdutos.getRtcValorunitario();
         }
         return "";
     }
@@ -77,7 +77,7 @@ public class Rtc_ControllerVendasProdutos extends AbstractTableModel {
         } else if (columnIndex == 3) {
             return "Valor Unitário";
         } else if (columnIndex == 4) {
-            return "Desconto";
+            return "Total";
         }
         return "";
     }

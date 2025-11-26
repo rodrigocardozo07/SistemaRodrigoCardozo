@@ -5,6 +5,7 @@
  */
 package tools;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -87,7 +88,8 @@ public class Util {
     }
 
     public static String doubleToStr(double num) {
-        return String.valueOf(num);
+        DecimalFormat duasCasas = new DecimalFormat("#0.00"); // Garante sempre duas casas após a vírgula
+        return duasCasas.format(num);
     }
 
     public static Date strToDate(String cad) {

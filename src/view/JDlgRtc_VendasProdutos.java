@@ -27,7 +27,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Vendas Produtos");
-        Util.habilitar(false, jTxtRtc_ValorUnitario, jTxtRtc_Desconto);
+        Util.habilitar(false, jTxtRtc_ValorUnitario, jTxtRtc_Total);
         jTxtRtc_Quantidade.setText("1");
         
         Rtc_ProdutosDAO rtc_ProdutosDAO = new Rtc_ProdutosDAO();
@@ -36,14 +36,10 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
             jCboRtc_Produtos.addItem( (RtcProduto) lista.get(i));            
         }
         
-  
-        
-        
-       
         jCboRtc_Produtos.setToolTipText("Selecione o produto para adicionar à venda");
         jTxtRtc_Quantidade.setToolTipText("Quantidade do produto (apenas números)");
         jTxtRtc_ValorUnitario.setToolTipText("Valor unitário do produto (use ponto para decimais)");
-        jTxtRtc_Desconto.setToolTipText("Desconto aplicado ao produto (use ponto para decimais)");
+        jTxtRtc_Total.setToolTipText("Total da venda do produto");
         jBtnOk.setToolTipText("Confirmar e adicionar produto à venda");
         jBtnCancelar.setToolTipText("Cancelar operação e fechar janela");
     }
@@ -91,7 +87,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jTxtRtc_ValorUnitario = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTxtRtc_Desconto = new javax.swing.JTextField();
+        jTxtRtc_Total = new javax.swing.JTextField();
         jBtnOk = new javax.swing.JButton();
         jBtnCancelar = new javax.swing.JButton();
 
@@ -120,7 +116,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
 
         jLabel3.setText("Valor Unitário");
 
-        jLabel4.setText("Desconto");
+        jLabel4.setText("Total");
 
         jBtnOk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/ok.png"))); // NOI18N
         jBtnOk.setText("OK");
@@ -161,7 +157,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel4)
                                 .addComponent(jBtnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTxtRtc_Desconto))))
+                                .addComponent(jTxtRtc_Total))))
                     .addComponent(jLabel1))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -181,7 +177,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtRtc_Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtRtc_ValorUnitario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtRtc_Desconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtRtc_Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +210,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         RtcProduto rtcProduto = (RtcProduto) jCboRtc_Produtos.getSelectedItem();
         jTxtRtc_ValorUnitario.setText(Util.doubleToStr(rtcProduto.getRtcPreco()));
         int quant = Util.strToInt(jTxtRtc_Quantidade.getText());
-       // jTxtRtc_Desconto.setText(Util.doubleToStr(quant * produtos.getValorUnitario())); ARRUMAR 
+       jTxtRtc_Total.setText(Util.doubleToStr(quant * rtcProduto.getRtcPreco())); 
     }//GEN-LAST:event_jCboRtc_ProdutosActionPerformed
 
     private void jTxtRtc_QuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtRtc_QuantidadeKeyReleased
@@ -222,9 +218,9 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         if(jTxtRtc_Quantidade.getText().isEmpty()== false) {
         RtcProduto rtcProduto = (RtcProduto) jCboRtc_Produtos.getSelectedItem();
         int quant = Util.strToInt(jTxtRtc_Quantidade.getText());
-        //jTxtRtc_Desconto.setText(Util.doubleToStr(quant * rtcProduto.getRtcPreco())); arrumar 
+        jTxtRtc_Total.setText(Util.doubleToStr(quant * rtcProduto.getRtcPreco()));
         } else {
-            jTxtRtc_Desconto.setText("");
+            jTxtRtc_Total.setText("");
         }
     }//GEN-LAST:event_jTxtRtc_QuantidadeKeyReleased
 
@@ -283,8 +279,8 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTxtRtc_Desconto;
     private javax.swing.JTextField jTxtRtc_Quantidade;
+    private javax.swing.JTextField jTxtRtc_Total;
     private javax.swing.JTextField jTxtRtc_ValorUnitario;
     // End of variables declaration//GEN-END:variables
 }
