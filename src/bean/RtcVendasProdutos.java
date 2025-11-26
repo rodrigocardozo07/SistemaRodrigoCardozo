@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="rtc_vendas_produtos"
-    ,catalog="db_rodrigo_cardozo"
+    
 )
 public class RtcVendasProdutos  implements java.io.Serializable {
 
@@ -57,7 +57,7 @@ public class RtcVendasProdutos  implements java.io.Serializable {
         this.rtcIdvendasProdutos = rtcIdvendasProdutos;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="rtc_idproduto")
     public RtcProduto getRtcProduto() {
         return this.rtcProduto;
@@ -67,7 +67,7 @@ public class RtcVendasProdutos  implements java.io.Serializable {
         this.rtcProduto = rtcProduto;
     }
 
-@ManyToOne(fetch=FetchType.LAZY)
+@ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="rtc_idvenda")
     public RtcVendas getRtcVendas() {
         return this.rtcVendas;

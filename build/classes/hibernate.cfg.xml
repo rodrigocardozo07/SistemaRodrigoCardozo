@@ -43,9 +43,9 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://10.7.0.51:33062/db_rodrigo_cardozo?zeroDateTimeBehavior=convertToNull</property>
-    <property name="hibernate.connection.username">rodrigo_cardozo</property>
-    <property name="hibernate.connection.password">rodrigo_cardozo</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/vendas?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password"></property>
     <mapping class="bean.RtcUsuario"/>
     <mapping class="bean.RtcVendasProdutos"/>
     <mapping class="bean.RtcVendedor"/>

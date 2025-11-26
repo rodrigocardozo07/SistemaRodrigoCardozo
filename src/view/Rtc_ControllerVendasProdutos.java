@@ -6,6 +6,7 @@
 package view;
 
 import bean.RtcVendas;
+import bean.RtcVendasProdutos;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,24 +14,35 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Jaque
  */
-public class Rtc_ControllerVendas extends AbstractTableModel {
+public class Rtc_ControllerVendasProdutos extends AbstractTableModel {
 
-    private List lstVendas;
+    private List lstVendasProd;
 
-    public void setList(List lstVendas) {
-        this.lstVendas = lstVendas;
+    public void setList(List lstVendasProdutos) {
+        this.lstVendasProd = lstVendasProdutos;
+        this.fireTableDataChanged();
     }
 
     public RtcVendas getBean(int rowIndex) {
-        return (RtcVendas) lstVendas.get(rowIndex);
+        return (RtcVendas) lstVendasProd.get(rowIndex);
+    }
+    
+    public void addBean(RtcVendasProdutos rtcVendasProdutos){
+        this.lstVendasProd.add(rtcVendasProdutos);
+        this.fireTableDataChanged();
+    }
+    
+    public void removeBean(int rowIndex) {
+        this.lstVendasProd.remove(rowIndex); 
+        this.fireTableDataChanged();
     }
 
     @Override
     public int getRowCount() {
-        if (lstVendas == null) {
+        if (lstVendasProd == null) {
             return 0;  // Retorna 0 se a lista for null
         }
-        return lstVendas.size();
+        return lstVendasProd.size();
 
     }
 
@@ -41,7 +53,7 @@ public class Rtc_ControllerVendas extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        RtcVendas rtc_Vendas = (RtcVendas) lstVendas.get(rowIndex);
+        RtcVendas rtc_Vendas = (RtcVendas) lstVendasProd.get(rowIndex);
         if (columnIndex == 0) {
             return rtc_Vendas.getRtcIdvenda();
         } else if (columnIndex == 1) {
@@ -59,11 +71,11 @@ public class Rtc_ControllerVendas extends AbstractTableModel {
         if (columnIndex == 0) {
             return "Num Venda";
         } else if (columnIndex == 1) {
-            return "Cliente";
+            return "Quantidade";
         } else if (columnIndex == 2) {
-            return "Vendedor";
+            return "Valor Unitário";
         } else if (columnIndex == 3) {
-            return "Data";
+            return "Desconto";
         }
         return "";
     }

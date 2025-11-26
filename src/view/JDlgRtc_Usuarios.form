@@ -259,12 +259,11 @@
     <Component class="javax.swing.JComboBox" name="jCboRtc_Nivel">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="5">
-            <StringItem index="0" value="Selecione"/>
-            <StringItem index="1" value="Administrador"/>
-            <StringItem index="2" value="Usu&#xe1;rio simples"/>
-            <StringItem index="3" value="Convidado"/>
-            <StringItem index="4" value="Outro"/>
+          <StringArray count="4">
+            <StringItem index="0" value="Administrador"/>
+            <StringItem index="1" value="Usu&#xe1;rio simples"/>
+            <StringItem index="2" value="Convidado"/>
+            <StringItem index="3" value="Outro"/>
           </StringArray>
         </Property>
       </Properties>

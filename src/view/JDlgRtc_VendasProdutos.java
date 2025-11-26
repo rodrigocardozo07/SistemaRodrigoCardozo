@@ -5,12 +5,20 @@
  */
 package view;
 
+import bean.RtcProduto;
+import bean.RtcVendasProdutos;
+import dao.Rtc_ProdutosDAO;
+import java.util.List;
+import tools.Util;
+
 /**
  *
  * @author u07855463160
  */
 public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
 
+    
+     JDlgRtc_Vendas jDlgRtc_Vendas;
     /**
      * Creates new form JDlgPedidosProdutos
      */
@@ -19,6 +27,14 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Vendas Produtos");
+        Util.habilitar(false, jTxtRtc_ValorUnitario, jTxtRtc_Desconto);
+        jTxtRtc_Quantidade.setText("1");
+        
+        Rtc_ProdutosDAO rtc_ProdutosDAO = new Rtc_ProdutosDAO();
+        List lista = (List) rtc_ProdutosDAO.listAll();
+        for (int i = 0; i < lista.size(); i++) {
+            jCboRtc_Produtos.addItem( (RtcProduto) lista.get(i));            
+        }
         
         addPlaceholder(jTxtRtc_Quantidade, "Ex: 1");
         addPlaceholder(jTxtRtc_ValorUnitario, "0,00");
@@ -31,6 +47,10 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         jTxtRtc_Desconto.setToolTipText("Desconto aplicado ao produto (use ponto para decimais)");
         jBtnOk.setToolTipText("Confirmar e adicionar produto à venda");
         jBtnCancelar.setToolTipText("Cancelar operação e fechar janela");
+    }
+    
+    public void setTelaPai(JDlgRtc_Vendas jDlgRtc_Vendas){
+        this.jDlgRtc_Vendas = jDlgRtc_Vendas;
     }
     
      private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
@@ -66,7 +86,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jCboRtc_Produtos = new javax.swing.JComboBox<>();
+        jCboRtc_Produtos = new javax.swing.JComboBox<RtcProduto>();
         jLabel2 = new javax.swing.JLabel();
         jTxtRtc_Quantidade = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -80,9 +100,19 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
 
         jLabel1.setText("Produtos");
 
-        jCboRtc_Produtos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCboRtc_Produtos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCboRtc_ProdutosActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Quantidade");
+
+        jTxtRtc_Quantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTxtRtc_QuantidadeKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Valor Unitário");
 
@@ -160,6 +190,12 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
 
     private void jBtnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnOkActionPerformed
         // TODO add your handling code here:
+        RtcVendasProdutos rtcVendasProdutos = new RtcVendasProdutos();
+        rtcVendasProdutos.setRtcProduto((RtcProduto) jCboRtc_Produtos.getSelectedItem());
+        rtcVendasProdutos.setRtcQuantidade(Util.strToInt(jTxtRtc_Quantidade.getText()));
+        rtcVendasProdutos.setRtcValorunitario(Util.strToDuble(jTxtRtc_ValorUnitario.getText()));
+        jDlgRtc_Vendas.rtc_ControllerVendasProdutos.addBean(rtcVendasProdutos);
+        
         setVisible(false);
     }//GEN-LAST:event_jBtnOkActionPerformed
 
@@ -168,6 +204,25 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         setVisible(false);
 
     }//GEN-LAST:event_jBtnCancelarActionPerformed
+
+    private void jCboRtc_ProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboRtc_ProdutosActionPerformed
+        // TODO add your handling code here:
+        RtcProduto rtcProduto = (RtcProduto) jCboRtc_Produtos.getSelectedItem();
+        jTxtRtc_ValorUnitario.setText(Util.doubleToStr(rtcProduto.getRtcPreco()));
+        int quant = Util.strToInt(jTxtRtc_Quantidade.getText());
+       // jTxtRtc_Desconto.setText(Util.doubleToStr(quant * produtos.getValorUnitario())); ARRUMAR 
+    }//GEN-LAST:event_jCboRtc_ProdutosActionPerformed
+
+    private void jTxtRtc_QuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTxtRtc_QuantidadeKeyReleased
+        // TODO add your handling code here:
+        if(jTxtRtc_Quantidade.getText().isEmpty()== false) {
+        RtcProduto rtcProduto = (RtcProduto) jCboRtc_Produtos.getSelectedItem();
+        int quant = Util.strToInt(jTxtRtc_Quantidade.getText());
+        //jTxtRtc_Desconto.setText(Util.doubleToStr(quant * rtcProduto.getRtcPreco())); arrumar 
+        } else {
+            jTxtRtc_Desconto.setText("");
+        }
+    }//GEN-LAST:event_jTxtRtc_QuantidadeKeyReleased
 
     /**
      * @param args the command line arguments
@@ -215,7 +270,7 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCancelar;
     private javax.swing.JButton jBtnOk;
-    private javax.swing.JComboBox<String> jCboRtc_Produtos;
+    private javax.swing.JComboBox<RtcProduto> jCboRtc_Produtos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

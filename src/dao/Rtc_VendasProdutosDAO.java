@@ -5,6 +5,7 @@
  */
 package dao;
 
+import bean.RtcVendas;
 import bean.RtcVendasProdutos;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -45,6 +46,15 @@ public class Rtc_VendasProdutosDAO extends Rtc_AbstractDAO{
         session.beginTransaction();
         Criteria criteria = session.createCriteria(RtcVendasProdutos.class);
         criteria.add(Restrictions.eq("rtc_idvendas_produtos", codigo));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    public Object listProdutos(RtcVendas rtcVendas) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcVendasProdutos.class);
+        criteria.add(Restrictions.eq("vendas", rtcVendas) );
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

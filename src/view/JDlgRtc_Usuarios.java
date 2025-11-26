@@ -214,7 +214,7 @@ public class JDlgRtc_Usuarios extends javax.swing.JDialog {
 
         jLblNome.setText("Nome");
 
-        jCboRtc_Nivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Administrador", "Usuário simples", "Convidado", "Outro" }));
+        jCboRtc_Nivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuário simples", "Convidado", "Outro" }));
 
         jBtnRtc_Incluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/incluir.png"))); // NOI18N
         jBtnRtc_Incluir.setText("Incluir");

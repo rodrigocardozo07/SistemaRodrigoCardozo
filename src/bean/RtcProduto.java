@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="rtc_produto"
-    ,catalog="db_rodrigo_cardozo"
+    
 )
 public class RtcProduto  implements java.io.Serializable {
 
@@ -123,7 +123,22 @@ public class RtcProduto  implements java.io.Serializable {
     }
 
 
+     @Override
+    public String toString() {
+        return this.rtcNome;
+    }
 
+    
+ @Override
+    public boolean equals( Object object){
+        if(object instanceof RtcProduto) {
+            RtcProduto rtcProduto = (RtcProduto)object;
+            if(this.getRtcIdproduto()== rtcProduto.getRtcIdproduto()){
+                return true;
+            }
+    }
+        return false;
+}
 
 
 

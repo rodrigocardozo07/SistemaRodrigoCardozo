@@ -8,9 +8,12 @@ package view;
 import dao.Rtc_ClientesDAO;
 import bean.RtcCliente;
 import bean.RtcVendas;
+import bean.RtcVendasProdutos;
 import bean.RtcVendedor;
 import dao.Rtc_VendedorDAO;
 import dao.Rtc_VendasDAO;
+import dao.Rtc_VendasProdutosDAO;
+import java.util.ArrayList;
 import java.util.List;
 import tools.Util;
 
@@ -21,6 +24,7 @@ import tools.Util;
 public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
     boolean incluir = false;
+    Rtc_ControllerVendasProdutos rtc_ControllerVendasProdutos;
     private boolean vendasPesquisado = false;
 
     /**
@@ -45,6 +49,10 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         for (int i = 0; i < listaVendedor.size(); i++) {
             jCboRtc_Vendedor.addItem((RtcVendedor) listaVendedor.get(i));
         }
+        
+        rtc_ControllerVendasProdutos = new Rtc_ControllerVendasProdutos();
+        rtc_ControllerVendasProdutos.setList(new ArrayList());
+        jTblRtc_VendasProdutos.setModel(rtc_ControllerVendasProdutos);
         
         addPlaceholder(jTxtRtc_Codigo, "Código...");
         addPlaceholder(jTxtRtc_Total, "0,00");
@@ -102,7 +110,7 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         return vendas;
     }
 
-    public void viewBean(RtcVendas vendas) {
+    public void beanView(RtcVendas vendas) {
         jTxtRtc_Codigo.setText(String.valueOf(vendas.getRtcIdvenda()));
         jFmtRtc_Data.setText(Util.dateToStr(vendas.getRtcDatavenda()));
         jCboRtc_Clientes.setSelectedItem(vendas.getRtcCliente());
@@ -110,6 +118,9 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         jTxtRtc_Total.setText(String.valueOf(vendas.getRtcTotal()));
         jTxtRtc_FormaPagamento.setText(vendas.getRtcFormapagamento());
         jTxtRtc_StatusVenda.setText(vendas.getRtcStatusvenda());
+        Rtc_VendasProdutosDAO rtc_VendasProdutosDAO = new Rtc_VendasProdutosDAO();
+        List lista = (List) rtc_VendasProdutosDAO.listProdutos(vendas);
+        rtc_ControllerVendasProdutos.setList(lista);
 
         vendasPesquisado = true;
     }
@@ -401,23 +412,37 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
             return;
         }
 
-        if (Util.perguntar("Deseja Excluir?") == true) {
+         if (Util.perguntar("Deseja excluir o produto ?") == true) {
             Rtc_VendasDAO rtc_VendasDAO = new Rtc_VendasDAO();
-            rtc_VendasDAO.delete(viewBean());
-        }
+            Rtc_VendasProdutosDAO rtc_VendasProdutosDAO = new Rtc_VendasProdutosDAO();
+            RtcVendas rtcVendas = viewBean();
+      
+            for(int ind = 0; ind < jTblRtc_VendasProdutos.getRowCount(); ind ++ ){ 
+                RtcVendasProdutos rtcVendasProdutos = rtc_ControllerVendasProdutos.getBean(ind);
+                rtc_VendasProdutosDAO.delete(rtcVendasProdutos);
+            }
+            rtc_VendasDAO.delete(rtcVendas);
+        } 
         Util.limpar(jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda);
         vendasPesquisado = false;
+        rtc_ControllerVendasProdutos.setList(new ArrayList());
     }//GEN-LAST:event_jBtnRtc_ExcluirActionPerformed
 
     private void jBtnRtc_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConfirmarActionPerformed
-        // TODO add your handling code here:
-        RtcVendas vendas = viewBean();
+        // TODO add your handling code here:     
         Rtc_VendasDAO rtc_VendasDAO = new Rtc_VendasDAO();
-
+        Rtc_VendasProdutosDAO rtc_VendasProdutosDAO = new Rtc_VendasProdutosDAO();
+        RtcVendas rtcVendas = viewBean();
         if (incluir == true) {
-            rtc_VendasDAO.insert(viewBean());
+            rtc_VendasDAO.insert(rtcVendas);
+            for(int ind = 0; ind < jTblRtc_VendasProdutos.getRowCount(); ind ++ ){ // isso foi algo a mais a ser feito
+                RtcVendasProdutos rtcVendasProdutos = rtc_ControllerVendasProdutos.getBean(ind);
+                rtcVendasProdutos.setRtcVendas(rtcVendas);
+                rtc_VendasProdutosDAO.insert(rtcVendasProdutos);
+            }
         } else {
-            rtc_VendasDAO.update(viewBean());
+            rtc_VendasDAO.update(rtcVendas);
+            
         }
 
         Util.habilitar(false, jTxtRtc_Codigo, jFmtRtc_Data, jCboRtc_Clientes, jCboRtc_Vendedor, jTxtRtc_Total, jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda, jBtnRtc_Confirmar, jBtnRtc_Cancelar, jBtnRtc_IncluirProd, jBtnRtc_AlterarProd, jBtnRtc_ExcluirProd);
@@ -449,14 +474,18 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
     private void jBtnRtc_ExcluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ExcluirProdActionPerformed
         // TODO add your handling code here:
-        if (Util.perguntar("Deseja excluir o produto?") == true) {
-
+      if (Util.perguntar("Deseja excluir o produto ?")== true) {
+            int ind = jTblRtc_VendasProdutos.getSelectedRow();
+            rtc_ControllerVendasProdutos.removeBean(ind);
         }
+        Util.limpar(jTxtRtc_Codigo, jTxtRtc_Total,jTxtRtc_FormaPagamento, jTxtRtc_StatusVenda ,jCboRtc_Clientes, jCboRtc_Vendedor, jFmtRtc_Data);
+        rtc_ControllerVendasProdutos.setList(new ArrayList());
     }//GEN-LAST:event_jBtnRtc_ExcluirProdActionPerformed
 
     private void jBtnRtc_IncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_IncluirProdActionPerformed
         // TODO add your handling code here:
         JDlgRtc_VendasProdutos jDlgRtc_VendasProdutos = new JDlgRtc_VendasProdutos(null, true);
+        jDlgRtc_VendasProdutos.setTelaPai(this);
         jDlgRtc_VendasProdutos.setVisible(true);
     }//GEN-LAST:event_jBtnRtc_IncluirProdActionPerformed
 

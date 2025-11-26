@@ -8,6 +8,7 @@ package view;
 import bean.RtcVendas;
 import dao.Rtc_VendasDAO;
 import java.util.List;
+import tools.Util;
 
 /**
  *
@@ -27,9 +28,9 @@ public class JDlgRtc_VendasPesquisar extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         setTitle("Pesquisar Vendas");
         
-         Rtc_VendasDAO vendasDao = new Rtc_VendasDAO();
-        List lista = (List) vendasDao.listAll();
         controllerVendas= new Rtc_ControllerVendas();
+        Rtc_VendasDAO vendasDao = new Rtc_VendasDAO();
+        List lista = (List) vendasDao.listAll();
         controllerVendas.setList(lista);
         jTblRtc_VendasPesquisar.setModel(controllerVendas);
     }
@@ -72,6 +73,11 @@ public class JDlgRtc_VendasPesquisar extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTblRtc_VendasPesquisar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTblRtc_VendasPesquisarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTblRtc_VendasPesquisar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -97,11 +103,21 @@ public class JDlgRtc_VendasPesquisar extends javax.swing.JDialog {
 
     private void jBtnRtc_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_OkActionPerformed
         // TODO add your handling code here:
-        int linSel = jTblRtc_VendasPesquisar.getSelectedRow();
-        RtcVendas vendas = (RtcVendas) controllerVendas.getBean(linSel);
-        jDlgRtc_Vendas.viewBean(vendas);
-        setVisible(false);
+        if(jTblRtc_VendasPesquisar.getSelectedRow() == -1){
+            Util.mensagem("Nenhuma linha selecionada.");
+        } else {
+            RtcVendas vendas =  controllerVendas.getBean( jTblRtc_VendasPesquisar.getSelectedRow() );
+            jDlgRtc_Vendas.beanView(vendas);
+            this.setVisible(false);
+        }
     }//GEN-LAST:event_jBtnRtc_OkActionPerformed
+
+    private void jTblRtc_VendasPesquisarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTblRtc_VendasPesquisarMouseClicked
+        // TODO add your handling code here:
+        if(evt.getClickCount() == 2){
+            jBtnRtc_OkActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTblRtc_VendasPesquisarMouseClicked
 
     
     /**
