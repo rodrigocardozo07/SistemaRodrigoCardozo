@@ -60,6 +60,19 @@ public class Rtc_UsuariosDAO extends Rtc_AbstractDAO{
         return lista;
     }
     
+    public Object listLogin(String username, String senha) {
+        session.beginTransaction();
+
+        Criteria criteria = session.createCriteria(RtcUsuario.class);
+        criteria.add(Restrictions.eq("rtcApelido", username));
+        criteria.add(Restrictions.eq("rtcSenha", senha));
+
+        RtcUsuario usuario = (RtcUsuario) criteria.uniqueResult();
+
+        session.getTransaction().commit();
+        return usuario;
+    }
+    
     public static void main(String[] args) {
         Rtc_UsuariosDAO usuariosDAO = new Rtc_UsuariosDAO();
         usuariosDAO.listAll();
