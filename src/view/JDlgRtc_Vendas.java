@@ -15,6 +15,7 @@ import dao.Rtc_VendasDAO;
 import dao.Rtc_VendasProdutosDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTable;
 import tools.Util;
 
 /**
@@ -109,6 +110,12 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
         vendas.setRtcStatusvenda(jTxtRtc_StatusVenda.getText());
         return vendas;
     }
+
+    public JTable getjTblRtc_VendasProdutos() {
+        return jTblRtc_VendasProdutos;
+    }
+    
+    
 
     public void beanView(RtcVendas vendas) {
         jTxtRtc_Codigo.setText(String.valueOf(vendas.getRtcIdvenda()));
@@ -444,6 +451,13 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
             }
         } else {
             rtc_VendasDAO.update(rtcVendas);
+            //remove todos as vendasprodutos
+            rtc_VendasProdutosDAO.deleteVendas(rtcVendas);
+            for(int ind = 0; ind < jTblRtc_VendasProdutos.getRowCount(); ind ++ ){ // isso foi algo a mais a ser feito
+                RtcVendasProdutos rtcVendasProdutos = rtc_ControllerVendasProdutos.getBean(ind);
+                rtcVendasProdutos.setRtcVendas(rtcVendas);
+                rtc_VendasProdutosDAO.insert(rtcVendasProdutos);
+            }
             
         }
 
@@ -495,13 +509,15 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
     private void jBtnRtc_IncluirProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_IncluirProdActionPerformed
         // TODO add your handling code here:
         JDlgRtc_VendasProdutos jDlgRtc_VendasProdutos = new JDlgRtc_VendasProdutos(null, true);
-        jDlgRtc_VendasProdutos.setTelaPai(this);
+        jDlgRtc_VendasProdutos.setTelaPai(this, null);
         jDlgRtc_VendasProdutos.setVisible(true);
     }//GEN-LAST:event_jBtnRtc_IncluirProdActionPerformed
 
     private void jBtnRtc_AlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarProdActionPerformed
         // TODO add your handling code here:
         JDlgRtc_VendasProdutos jDlgRtc_VendasProdutos = new JDlgRtc_VendasProdutos(null, true);
+        RtcVendasProdutos rtcVendasProdutos = rtc_ControllerVendasProdutos.getBean(jTblRtc_VendasProdutos.getSelectedRow());
+        jDlgRtc_VendasProdutos.setTelaPai(this, rtcVendasProdutos);
         jDlgRtc_VendasProdutos.setVisible(true);
     }//GEN-LAST:event_jBtnRtc_AlterarProdActionPerformed
 

@@ -19,6 +19,8 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
 
     
      JDlgRtc_Vendas jDlgRtc_Vendas;
+     private boolean incluir;
+     
     /**
      * Creates new form JDlgPedidosProdutos
      */
@@ -44,8 +46,14 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         jBtnCancelar.setToolTipText("Cancelar operação e fechar janela");
     }
     
-    public void setTelaPai(JDlgRtc_Vendas jDlgRtc_Vendas){
+    public void setTelaPai(JDlgRtc_Vendas jDlgRtc_Vendas, RtcVendasProdutos rtcVendasProdutos){
         this.jDlgRtc_Vendas = jDlgRtc_Vendas;
+        incluir = true;
+        if(rtcVendasProdutos != null){
+            incluir = false;
+            jCboRtc_Produtos.setSelectedItem(rtcVendasProdutos.getRtcProduto());
+            jTxtRtc_Quantidade.setText(Util.intToStr(rtcVendasProdutos.getRtcQuantidade()));
+        }
     }
     
      private void addPlaceholder(javax.swing.text.JTextComponent textComponent, String placeholder) {
@@ -194,6 +202,9 @@ public class JDlgRtc_VendasProdutos extends javax.swing.JDialog {
         rtcVendasProdutos.setRtcProduto((RtcProduto) jCboRtc_Produtos.getSelectedItem());
         rtcVendasProdutos.setRtcQuantidade(Util.strToInt(jTxtRtc_Quantidade.getText()));
         rtcVendasProdutos.setRtcValorunitario(Util.strToDuble(jTxtRtc_ValorUnitario.getText()));
+        if(incluir == false) {
+            jDlgRtc_Vendas.rtc_ControllerVendasProdutos.removeBean(jDlgRtc_Vendas.getjTblRtc_VendasProdutos().getSelectedRow());
+        }
         jDlgRtc_Vendas.rtc_ControllerVendasProdutos.addBean(rtcVendasProdutos);
         
         setVisible(false);

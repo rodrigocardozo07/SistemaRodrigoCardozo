@@ -40,6 +40,18 @@ public class Rtc_VendasProdutosDAO extends Rtc_AbstractDAO{
         session.delete(object);
         session.getTransaction().commit();
     }
+    
+     public void deleteVendas(RtcVendas rtcVendas){
+        //pegar produtos do pedido
+        List lista = (List) listProdutos(rtcVendas);
+        //remover todos os produtos daquele pedido
+        //fazer um for 
+        for (int i = 0; i < lista.size(); i++) {
+            RtcVendasProdutos rtcVendasProdutos = (RtcVendasProdutos) lista.get(i);
+            delete(rtcVendasProdutos);
+            
+        }
+     }
 
     @Override
     public Object list(int codigo) {
