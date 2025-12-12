@@ -45,7 +45,33 @@ public class Rtc_ProdutosDAO extends Rtc_AbstractDAO{
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(RtcProduto.class);
-        criteria.add(Restrictions.eq("rtc_idproduto", codigo));
+        criteria.add(Restrictions.eq("rtcIdproduto", codigo));
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    public Object listNome(String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcProduto.class);
+        criteria.add(Restrictions.like("rtcNome", "%"+nome+"%") );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+      public Object listValor(double preco) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcProduto.class);
+        criteria.add(Restrictions.ge("rtcPreco", preco) );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+       public Object listNomeValor(String nome, double preco) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcProduto.class);
+        criteria.add(Restrictions.like("rtcNome", "%"+nome+"%") );
+        criteria.add(Restrictions.ge("rtcPreco", preco) );
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

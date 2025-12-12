@@ -44,7 +44,7 @@ public class Rtc_VendedorDAO  extends Rtc_AbstractDAO{
     public Object list(int codigo) {
         session.beginTransaction();
         Criteria criteria = session.createCriteria(RtcVendedor.class);
-        criteria.add(Restrictions.eq("rtc_idvendedor", codigo));
+        criteria.add(Restrictions.eq("rtcIdvendedor", codigo));
         List lista = criteria.list();
         session.getTransaction().commit();
         return lista;

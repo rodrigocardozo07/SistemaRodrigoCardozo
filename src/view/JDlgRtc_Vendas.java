@@ -117,16 +117,16 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
     
     
 
-    public void beanView(RtcVendas vendas) {
-        jTxtRtc_Codigo.setText(String.valueOf(vendas.getRtcIdvenda()));
-        jFmtRtc_Data.setText(Util.dateToStr(vendas.getRtcDatavenda()));
-        jCboRtc_Clientes.setSelectedItem(vendas.getRtcCliente());
-        jCboRtc_Vendedor.setSelectedItem(vendas.getRtcVendedor());
-        jTxtRtc_Total.setText(String.valueOf(vendas.getRtcTotal()));
-        jTxtRtc_FormaPagamento.setText(vendas.getRtcFormapagamento());
-        jTxtRtc_StatusVenda.setText(vendas.getRtcStatusvenda());
+    public void beanView(RtcVendas rtcVendas) {
+        jTxtRtc_Codigo.setText(String.valueOf(rtcVendas.getRtcIdvenda()));
+        jFmtRtc_Data.setText(Util.dateToStr(rtcVendas.getRtcDatavenda()));
+        jCboRtc_Clientes.setSelectedItem(rtcVendas.getRtcCliente());
+        jCboRtc_Vendedor.setSelectedItem(rtcVendas.getRtcVendedor());
+        jTxtRtc_Total.setText(String.valueOf(rtcVendas.getRtcTotal()));
+        jTxtRtc_FormaPagamento.setText(rtcVendas.getRtcFormapagamento());
+        jTxtRtc_StatusVenda.setText(rtcVendas.getRtcStatusvenda());
         Rtc_VendasProdutosDAO rtc_VendasProdutosDAO = new Rtc_VendasProdutosDAO();
-        List lista = (List) rtc_VendasProdutosDAO.listProdutos(vendas);
+        List lista = (List) rtc_VendasProdutosDAO.listProdutos(rtcVendas);
         rtc_ControllerVendasProdutos.setList(lista);
 
         vendasPesquisado = true;
