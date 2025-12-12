@@ -30,9 +30,11 @@ public class JFrmRtc_Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBarRtc = new javax.swing.JToolBar();
-        jBtnRtc_Vendedor = new javax.swing.JButton();
-        jBtnRtc_Produto = new javax.swing.JButton();
-        jBtnRtc_Usuario = new javax.swing.JButton();
+        jBtnRtc_CadastroVendedor = new javax.swing.JButton();
+        jBtnRtc_CadastroProduto = new javax.swing.JButton();
+        jBtnRtc_CadastroUsuario = new javax.swing.JButton();
+        jBtnRtc_ConsultaVendas = new javax.swing.JButton();
+        jBtnRtc_ConsultaClientes = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMnuRtc_Cadastros = new javax.swing.JMenu();
         jMnuRtc_Clientes = new javax.swing.JMenuItem();
@@ -52,38 +54,60 @@ public class JFrmRtc_Principal extends javax.swing.JFrame {
 
         jToolBarRtc.setRollover(true);
 
-        jBtnRtc_Vendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vendedor.png"))); // NOI18N
-        jBtnRtc_Vendedor.setFocusable(false);
-        jBtnRtc_Vendedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtnRtc_Vendedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtnRtc_Vendedor.addActionListener(new java.awt.event.ActionListener() {
+        jBtnRtc_CadastroVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vendedor.png"))); // NOI18N
+        jBtnRtc_CadastroVendedor.setFocusable(false);
+        jBtnRtc_CadastroVendedor.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnRtc_CadastroVendedor.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtnRtc_CadastroVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRtc_VendedorActionPerformed(evt);
+                jBtnRtc_CadastroVendedorActionPerformed(evt);
             }
         });
-        jToolBarRtc.add(jBtnRtc_Vendedor);
+        jToolBarRtc.add(jBtnRtc_CadastroVendedor);
 
-        jBtnRtc_Produto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/produto.png"))); // NOI18N
-        jBtnRtc_Produto.setFocusable(false);
-        jBtnRtc_Produto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtnRtc_Produto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtnRtc_Produto.addActionListener(new java.awt.event.ActionListener() {
+        jBtnRtc_CadastroProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/produto.png"))); // NOI18N
+        jBtnRtc_CadastroProduto.setFocusable(false);
+        jBtnRtc_CadastroProduto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnRtc_CadastroProduto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtnRtc_CadastroProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRtc_ProdutoActionPerformed(evt);
+                jBtnRtc_CadastroProdutoActionPerformed(evt);
             }
         });
-        jToolBarRtc.add(jBtnRtc_Produto);
+        jToolBarRtc.add(jBtnRtc_CadastroProduto);
 
-        jBtnRtc_Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuário.png"))); // NOI18N
-        jBtnRtc_Usuario.setFocusable(false);
-        jBtnRtc_Usuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jBtnRtc_Usuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jBtnRtc_Usuario.addActionListener(new java.awt.event.ActionListener() {
+        jBtnRtc_CadastroUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/usuário.png"))); // NOI18N
+        jBtnRtc_CadastroUsuario.setFocusable(false);
+        jBtnRtc_CadastroUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnRtc_CadastroUsuario.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtnRtc_CadastroUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnRtc_UsuarioActionPerformed(evt);
+                jBtnRtc_CadastroUsuarioActionPerformed(evt);
             }
         });
-        jToolBarRtc.add(jBtnRtc_Usuario);
+        jToolBarRtc.add(jBtnRtc_CadastroUsuario);
+
+        jBtnRtc_ConsultaVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/vendas produtos.png"))); // NOI18N
+        jBtnRtc_ConsultaVendas.setFocusable(false);
+        jBtnRtc_ConsultaVendas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnRtc_ConsultaVendas.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtnRtc_ConsultaVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRtc_ConsultaVendasActionPerformed(evt);
+            }
+        });
+        jToolBarRtc.add(jBtnRtc_ConsultaVendas);
+
+        jBtnRtc_ConsultaClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/cliente.png"))); // NOI18N
+        jBtnRtc_ConsultaClientes.setFocusable(false);
+        jBtnRtc_ConsultaClientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jBtnRtc_ConsultaClientes.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jBtnRtc_ConsultaClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRtc_ConsultaClientesActionPerformed(evt);
+            }
+        });
+        jToolBarRtc.add(jBtnRtc_ConsultaClientes);
 
         jMnuRtc_Cadastros.setText("Cadastros");
 
@@ -250,20 +274,20 @@ public class JFrmRtc_Principal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jMnuRtc_SairActionPerformed
 
-    private void jBtnRtc_VendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_VendedorActionPerformed
+    private void jBtnRtc_CadastroVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_CadastroVendedorActionPerformed
         // TODO add your handling code here:
         jMnuRtc_VendedorActionPerformed(null);
-    }//GEN-LAST:event_jBtnRtc_VendedorActionPerformed
+    }//GEN-LAST:event_jBtnRtc_CadastroVendedorActionPerformed
 
-    private void jBtnRtc_ProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ProdutoActionPerformed
+    private void jBtnRtc_CadastroProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_CadastroProdutoActionPerformed
         // TODO add your handling code here:
         jMnuRtc_ProdutosActionPerformed(null);
-    }//GEN-LAST:event_jBtnRtc_ProdutoActionPerformed
+    }//GEN-LAST:event_jBtnRtc_CadastroProdutoActionPerformed
 
-    private void jBtnRtc_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_UsuarioActionPerformed
+    private void jBtnRtc_CadastroUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_CadastroUsuarioActionPerformed
         // TODO add your handling code here:
         JMnuRtc_UsuariosActionPerformed(null);
-    }//GEN-LAST:event_jBtnRtc_UsuarioActionPerformed
+    }//GEN-LAST:event_jBtnRtc_CadastroUsuarioActionPerformed
 
     private void jMnuRtc_ProdConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuRtc_ProdConsultaActionPerformed
         // TODO add your handling code here:
@@ -288,6 +312,18 @@ public class JFrmRtc_Principal extends javax.swing.JFrame {
         JDlgRtc_ConsultaUsuarios jDlgRtc_ConsultaUsuarios = new JDlgRtc_ConsultaUsuarios(this, true);
         jDlgRtc_ConsultaUsuarios.setVisible(true);
     }//GEN-LAST:event_jMnuRtc_UsuarioConsultaActionPerformed
+
+    private void jBtnRtc_ConsultaVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConsultaVendasActionPerformed
+        // TODO add your handling code here:
+        JDlgRtc_ConsultaVendas jDlgRtc_ConsultaVendas = new JDlgRtc_ConsultaVendas(this, true);
+        jDlgRtc_ConsultaVendas.setVisible(true);
+    }//GEN-LAST:event_jBtnRtc_ConsultaVendasActionPerformed
+
+    private void jBtnRtc_ConsultaClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConsultaClientesActionPerformed
+        // TODO add your handling code here:
+        JDlgRtc_ConsultaClientes jDlgRtc_ConsultaClientes = new JDlgRtc_ConsultaClientes(this, true);
+        jDlgRtc_ConsultaClientes.setVisible(true);
+    }//GEN-LAST:event_jBtnRtc_ConsultaClientesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,9 +362,11 @@ public class JFrmRtc_Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem JMnuRtc_Usuarios;
-    private javax.swing.JButton jBtnRtc_Produto;
-    private javax.swing.JButton jBtnRtc_Usuario;
-    private javax.swing.JButton jBtnRtc_Vendedor;
+    private javax.swing.JButton jBtnRtc_CadastroProduto;
+    private javax.swing.JButton jBtnRtc_CadastroUsuario;
+    private javax.swing.JButton jBtnRtc_CadastroVendedor;
+    private javax.swing.JButton jBtnRtc_ConsultaClientes;
+    private javax.swing.JButton jBtnRtc_ConsultaVendas;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMnuRtc_Cadastros;
     private javax.swing.JMenuItem jMnuRtc_ClientConsulta;
