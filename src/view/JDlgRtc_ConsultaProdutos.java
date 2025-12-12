@@ -29,6 +29,7 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         setTitle("Consulta de Produtos");
+        
         rtc_controllerConsultasProdutos = new Rtc_ControllerConsultasProdutos();
         rtc_ProdutosDAO = new Rtc_ProdutosDAO();
         List lista = (List)rtc_ProdutosDAO.listAll();

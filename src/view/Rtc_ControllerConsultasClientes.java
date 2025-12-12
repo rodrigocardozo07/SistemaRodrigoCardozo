@@ -4,8 +4,7 @@
  */
 package view;
 
-import bean.RtcProduto;
-import bean.RtcUsuario;
+import bean.RtcCliente;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,18 +13,18 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Marcos
  */
-public class Rtc_ControllerConsultasProdutos extends AbstractTableModel {
+public class Rtc_ControllerConsultasClientes extends AbstractTableModel {
 
-    private List lstProdutos;
+    private List lstClientes;
 
-    public void setList(List lstProdutos) {
-        this.lstProdutos = lstProdutos;
+    public void setList(List lstClientes) {
+        this.lstClientes = lstClientes;
         this.fireTableDataChanged();
     }
 
     @Override
     public int getRowCount() {
-        return lstProdutos.size();
+        return lstClientes.size();
                 
     }
 
@@ -36,13 +35,13 @@ public class Rtc_ControllerConsultasProdutos extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        RtcProduto rtcProduto = (RtcProduto) lstProdutos.get( rowIndex);
+        RtcCliente rtcCliente = (RtcCliente) lstClientes.get( rowIndex);
         if ( columnIndex == 0 ){
-            return rtcProduto.getRtcIdproduto();
+            return rtcCliente.getRtcIdcliente();
         } else if (columnIndex ==1) {
-            return rtcProduto.getRtcNome();        
+            return rtcCliente.getRtcNome();        
         } else if (columnIndex ==2) {
-            return rtcProduto.getRtcPreco();
+            return rtcCliente.getRtcSexo();
         } 
         return "";
     }
@@ -54,7 +53,7 @@ public class Rtc_ControllerConsultasProdutos extends AbstractTableModel {
         } else if ( columnIndex == 1) {
             return "Nome";         
         } else if ( columnIndex == 2) {
-            return "Valor Unitário";
+            return "Sexo";
         }
         return "";
     }

@@ -4,9 +4,7 @@
  */
 package view;
 
-import bean.RtcUsuario;
-import dao.Rtc_ProdutosDAO;
-import dao.Rtc_UsuariosDAO;
+import dao.Rtc_ClientesDAO;
 import java.util.List;
 import tools.Util;
 import view.JDlgRtc_Usuarios;
@@ -15,25 +13,26 @@ import view.JDlgRtc_Usuarios;
  *
  * @author Marcos
  */
-public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
+public class JDlgRtc_ConsultaClientes extends javax.swing.JDialog {
 
     /**
      * Creates new form JDlgUsuariosPesquisar
      */
  
-    Rtc_ControllerConsultasProdutos rtc_controllerConsultasProdutos;
-    Rtc_ProdutosDAO rtc_ProdutosDAO;
+    Rtc_ControllerConsultasClientes rtc_ControllerConsultasClientes;
+    Rtc_ClientesDAO rtc_ClientesDAO;
 
-    public JDlgRtc_ConsultaProdutos(java.awt.Frame parent, boolean modal) {
+    public JDlgRtc_ConsultaClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
-        setTitle("Consulta de Produtos");
-        rtc_controllerConsultasProdutos = new Rtc_ControllerConsultasProdutos();
-        rtc_ProdutosDAO = new Rtc_ProdutosDAO();
-        List lista = (List)rtc_ProdutosDAO.listAll();
-        rtc_controllerConsultasProdutos.setList(lista);
-        jTblRtc_Consulta.setModel(rtc_controllerConsultasProdutos);
+        setTitle("Consulta de Clientes");
+        
+        rtc_ControllerConsultasClientes = new Rtc_ControllerConsultasClientes();
+        rtc_ClientesDAO = new Rtc_ClientesDAO();
+        List lista = (List)rtc_ClientesDAO.listAll();
+        rtc_ControllerConsultasClientes.setList(lista);
+        jTblRtc_Consulta.setModel(rtc_ControllerConsultasClientes);
     }
 
    
@@ -51,8 +50,8 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
         jBtnRtc_Ok = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTxtRtc_Nome = new javax.swing.JTextField();
-        jTxtRtc_Valor = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        jTxtRtc_Sexo = new javax.swing.JTextField();
+        jLblRtc_Sexo = new javax.swing.JLabel();
         jBtnRtc_Consulta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -85,7 +84,7 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
 
         jLabel1.setText("Nome");
 
-        jLabel2.setText("Valor Maior que ");
+        jLblRtc_Sexo.setText("Sexo");
 
         jBtnRtc_Consulta.setText("Consultar");
         jBtnRtc_Consulta.addActionListener(new java.awt.event.ActionListener() {
@@ -111,9 +110,9 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
                             .addComponent(jTxtRtc_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(jLblRtc_Sexo)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTxtRtc_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTxtRtc_Sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jBtnRtc_Consulta)))))
                 .addContainerGap())
@@ -128,10 +127,10 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTxtRtc_Nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(jLblRtc_Sexo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTxtRtc_Valor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTxtRtc_Sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jBtnRtc_Consulta))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,18 +155,18 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
 
     private void jBtnRtc_ConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_ConsultaActionPerformed
         // TODO add your handling code here:
-        if (jTxtRtc_Nome.getText().isEmpty()== false && jTxtRtc_Valor.getText().isEmpty()== false ) {
-            List lista = (List)rtc_ProdutosDAO.listNomeValor(jTxtRtc_Nome.getText(), Util.strToDuble(jTxtRtc_Valor.getText()));
-            rtc_controllerConsultasProdutos.setList(lista); 
+        if (jTxtRtc_Nome.getText().isEmpty()== false && jTxtRtc_Sexo.getText().isEmpty()== false ) {
+            List lista = (List)rtc_ClientesDAO.listNomeSexo(jTxtRtc_Nome.getText(), jTxtRtc_Sexo.getText());
+            rtc_ControllerConsultasClientes.setList(lista); 
         }else if(jTxtRtc_Nome.getText().isEmpty()== false ){
-            List lista = (List)rtc_ProdutosDAO.listNome(jTxtRtc_Nome.getText());
-            rtc_controllerConsultasProdutos.setList(lista); 
-        } else if(jTxtRtc_Valor.getText().isEmpty()== false ){
-            List lista = (List)rtc_ProdutosDAO.listValor(Util.strToDuble(jTxtRtc_Valor.getText()));
-            rtc_controllerConsultasProdutos.setList(lista); 
+            List lista = (List)rtc_ClientesDAO.listNome(jTxtRtc_Nome.getText());
+            rtc_ControllerConsultasClientes.setList(lista); 
+        } else if(jTxtRtc_Sexo.getText().isEmpty()== false ){
+            List lista = (List)rtc_ClientesDAO.listSexo(jTxtRtc_Sexo.getText());
+            rtc_ControllerConsultasClientes.setList(lista); 
         } else {
-            List lista = (List) rtc_ProdutosDAO.listAll();
-            rtc_controllerConsultasProdutos.setList(lista);
+            List lista = (List) rtc_ClientesDAO.listAll();
+            rtc_ControllerConsultasClientes.setList(lista);
             
         }
         
@@ -191,14 +190,22 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDlgRtc_ConsultaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -211,7 +218,7 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDlgRtc_ConsultaProdutos dialog = new JDlgRtc_ConsultaProdutos(new javax.swing.JFrame(), true);
+                JDlgRtc_ConsultaClientes dialog = new JDlgRtc_ConsultaClientes(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -227,10 +234,10 @@ public class JDlgRtc_ConsultaProdutos extends javax.swing.JDialog {
     private javax.swing.JButton jBtnRtc_Consulta;
     private javax.swing.JButton jBtnRtc_Ok;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLblRtc_Sexo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTblRtc_Consulta;
     private javax.swing.JTextField jTxtRtc_Nome;
-    private javax.swing.JTextField jTxtRtc_Valor;
+    private javax.swing.JTextField jTxtRtc_Sexo;
     // End of variables declaration//GEN-END:variables
 }

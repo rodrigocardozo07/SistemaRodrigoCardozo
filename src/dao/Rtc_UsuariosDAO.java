@@ -50,6 +50,34 @@ public class Rtc_UsuariosDAO extends Rtc_AbstractDAO{
         session.getTransaction().commit();
         return lista;
     }
+    
+    public Object listNome(String nome) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcUsuario.class);
+        criteria.add(Restrictions.like("rtcNome", "%"+nome+"%") );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+    
+    public Object listAtivo(String ativo) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcUsuario.class);
+        criteria.add(Restrictions.like("rtcAtivo", "%"+ativo+"%") );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+
+     public Object listNomeAtivo(String nome, String ativo) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcUsuario.class);
+        criteria.add(Restrictions.like("rtcNome", "%"+nome+"%") );
+        criteria.add(Restrictions.ge("rtcAtivo", ativo) );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
 
     @Override
     public Object listAll() {

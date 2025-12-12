@@ -515,6 +515,11 @@ public class JDlgRtc_Vendas extends javax.swing.JDialog {
 
     private void jBtnRtc_AlterarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRtc_AlterarProdActionPerformed
         // TODO add your handling code here:
+         if (jTblRtc_VendasProdutos.getSelectedRow() == -1) { // aqui está verificando se a linha está realmente selecionada 
+            Util.aviso("Pesquise algum Produto antes de alterar!");
+            return;
+        }
+        
         JDlgRtc_VendasProdutos jDlgRtc_VendasProdutos = new JDlgRtc_VendasProdutos(null, true);
         RtcVendasProdutos rtcVendasProdutos = rtc_ControllerVendasProdutos.getBean(jTblRtc_VendasProdutos.getSelectedRow());
         jDlgRtc_VendasProdutos.setTelaPai(this, rtcVendasProdutos);

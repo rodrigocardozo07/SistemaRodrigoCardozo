@@ -49,6 +49,32 @@ public class Rtc_VendasDAO extends Rtc_AbstractDAO{
         session.getTransaction().commit();
         return lista;
     }
+    
+    public Object listStatus(String status) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcVendas.class);
+        criteria.add(Restrictions.like("rtcStatusvenda", "%"+status+"%") );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+      public Object listTotal(double total) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcVendas.class);
+        criteria.add(Restrictions.ge("rtcTotal", total) );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
+       public Object listStatusTotal(String status, double total) {
+        session.beginTransaction();
+        Criteria criteria = session.createCriteria(RtcVendas.class);
+        criteria.add(Restrictions.like("rtcStatusvenda", "%"+status+"%") );
+        criteria.add(Restrictions.ge("rtcTotal", total) );
+        List lista = criteria.list();
+        session.getTransaction().commit();
+        return lista;
+    }
 
     @Override
     public Object listAll() {
